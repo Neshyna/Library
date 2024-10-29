@@ -1,111 +1,112 @@
 package Utils;
 
 import java.lang.reflect.Array;
+import java.util.Comparator;
 import java.util.Iterator;
 /*
 
  */
 
-    public class MyArrayList<T> implements MyList<T> ,Iterable<T>{
-        private T[] array;
-        private int cursor; // присвоено значение по умолчанию = 0;
+public class MyArrayList<T> implements MyList<T> ,Iterable<T>{
+    private T[] array;
+    private int cursor; // присвоено значение по умолчанию = 0;
 
-        @SuppressWarnings("unchecked") // Подавляю предупреждение компилятора о непроверяемом приведении типа
-        public MyArrayList() {
-            array = (T[]) new Object[10];
+    @SuppressWarnings("unchecked") // Подавляю предупреждение компилятора о непроверяемом приведении типа
+    public MyArrayList() {
+        array = (T[]) new Object[10];
+    }
+
+    @SuppressWarnings("unchecked")
+    public MyArrayList(T[] array) {
+        if (array == null || array.length == 0) {
+            this.array = (T[]) new Object[10];
+        } else {
+            this.array = (T[]) new Object[array.length * 2];
+            addAll(array);
+        }
+    }
+
+    // Добавление в массив одного элемента
+    public void add(T value) {
+
+
+        // Проверка. Есть ли вообще свободное место во внутреннем массиве
+        // Если места нет - нужно добавить место
+        if (cursor == array.length - 1) {
+            // Расширить массив перед добавлением нового элемента
+            expandArray();
         }
 
-        @SuppressWarnings("unchecked")
-        public MyArrayList(T[] array) {
-            if (array == null || array.length == 0) {
-                this.array = (T[]) new Object[10];
-            } else {
-                this.array = (T[]) new Object[array.length * 2];
-                addAll(array);
-            }
+        array[cursor] = value;
+        cursor++;
+    }
+
+    @Override
+    public void addAll(T... numbers) {
+        // с numbers я могу обращаться точно также, как со ссылкой на массив int
+        // System.out.println("Приняли несколько интов. А именно: " + numbers.length);
+        // System.out.println("Есть индекс у каждого инта, как в массиве. По индексом 0: " + numbers[0]);
+        for (int i = 0; i < numbers.length; i++) {
+            add(numbers[i]);
         }
-
-        // Добавление в массив одного элемента
-        public void add(T value) {
+    }
 
 
-            // Проверка. Есть ли вообще свободное место во внутреннем массиве
-            // Если места нет - нужно добавить место
-            if (cursor == array.length - 1) {
-                // Расширить массив перед добавлением нового элемента
-                expandArray();
-            }
-
-            array[cursor] = value;
-            cursor++;
-        }
-
-        @Override
-        public void addAll(T... numbers) {
-            // с numbers я могу обращаться точно также, как со ссылкой на массив int
-            // System.out.println("Приняли несколько интов. А именно: " + numbers.length);
-            // System.out.println("Есть индекс у каждого инта, как в массиве. По индексом 0: " + numbers[0]);
-            for (int i = 0; i < numbers.length; i++) {
-                add(numbers[i]);
-            }
-        }
-
-
-        // Динамическое расширение массива
-        private void expandArray() {
-            System.out.println("Расширяем массив! Курсор = " + cursor);
+    // Динамическое расширение массива
+    private void expandArray() {
+        System.out.println("Расширяем массив! Курсор = " + cursor);
         /*
         1. создать новый массив бОльшего размера (в 2 раза больше)
         2. Переписать в новый массив все значения из старого (до курсора)
         3. Перебросить ссылку
          */
 
-            // 1
-            T[] newArray = (T[]) new Object[array.length * 2];
+        // 1
+        T[] newArray = (T[]) new Object[array.length * 2];
 
-            // 2
-            for (int i = 0; i < cursor; i++) {
-                newArray[i] = array[i]; // Переписываю все значения из старого массива в новый
-            }
-
-            // Перебрасываем ссылку. Переменная array хранит ссылку на "новый" массив
-            array = newArray;
-            System.out.println("Расширение массива завершено");
+        // 2
+        for (int i = 0; i < cursor; i++) {
+            newArray[i] = array[i]; // Переписываю все значения из старого массива в новый
         }
 
-        // Возвращает строковое представление массива
-        // [1, 14, 16]
-        public String toString() {
+        // Перебрасываем ссылку. Переменная array хранит ссылку на "новый" массив
+        array = newArray;
+        System.out.println("Расширение массива завершено");
+    }
 
-            if (cursor == 0) return "[]";
+    // Возвращает строковое представление массива
+    // [1, 14, 16]
+    public String toString() {
 
-            String result = "[";
-            for (int i = 0; i < cursor; i++) {
-                result = result + array[i] + (i < cursor - 1 ? ", " : "]"); //", " / "]"
-            }
+        if (cursor == 0) return "[]";
 
-            return result;
+        String result = "[";
+        for (int i = 0; i < cursor; i++) {
+            result = result + array[i] + (i < cursor - 1 ? ", " : "]"); //", " / "]"
         }
 
+        return result;
+    }
 
-        // Текущее количество элементов в массиве
-        public int size() {
-            return cursor;
+
+    // Текущее количество элементов в массиве
+    public int size() {
+        return cursor;
+    }
+
+    // Возвращает значение по индексу
+    @Override
+    public T get(int index) {
+        if (index >= 0 && index < cursor) {
+            return array[index];
         }
+        // Написать код, если индекс "не корректный"
+        return null; //
 
-        // Возвращает значение по индексу
-        @Override
-        public T get(int index) {
-            if (index >= 0 && index < cursor) {
-                return array[index];
-            }
-            // Написать код, если индекс "не корректный"
-            return null; //
+    }
 
-        }
-
-        // Удаление элемента по индексу
-        public T remove(int index) {
+    // Удаление элемента по индексу
+    public T remove(int index) {
         /*
         1. Проверка индекса на валидность
         2. Удалить значение по индексу
@@ -113,43 +114,43 @@ import java.util.Iterator;
         4. Вернуть старое значение
         */
 
-            if (index >= 0 && index < cursor) {
-                // Логика удаления
-                T value = array[index]; // значение, которое я должен вернуть
+        if (index >= 0 && index < cursor) {
+            // Логика удаления
+            T value = array[index]; // значение, которое я должен вернуть
 
-                // Перебираем элементы начиная с индекса и перезаписываем значениями из соседней правой ячейки
-                for (int i = index; i < cursor - 1; i++) { // граница перебора индексов?
-                    array[i] = array[i + 1];
-                }
-                cursor--;
-
-                return value; // возвращаем старое значение
-
-            } else {
-//           Индекс не валидный
-                return null;
+            // Перебираем элементы начиная с индекса и перезаписываем значениями из соседней правой ячейки
+            for (int i = index; i < cursor - 1; i++) { // граница перебора индексов?
+                array[i] = array[i + 1];
             }
-        }
+            cursor--;
 
-        // Удаление элемента по значению
-        @Override
-        public boolean remove(T value) {
+            return value; // возвращаем старое значение
+
+        } else {
+//           Индекс не валидный
+            return null;
+        }
+    }
+
+    // Удаление элемента по значению
+    @Override
+    public boolean remove(T value) {
         /*
         1. Есть ли элемент с таким значение в массиве - indexOf
         2. Если элемента нет - вернуть false
         3. Если элемент есть - удалить и вернуть true - вызвать удаление по индексу
          */
-            int index = indexOf(value);
-            if (index == -1) return false;
+        int index = indexOf(value);
+        if (index == -1) return false;
 
-            remove(index);
-            return true;
-        }
+        remove(index);
+        return true;
+    }
 
-        @Override
-        public boolean contains(T value) {
-            // 3 >= 0 -> true (элемент найден) | -1 >= 0 -> false (не содержится)
-            return indexOf(value) >= 0;
+    @Override
+    public boolean contains(T value) {
+        // 3 >= 0 -> true (элемент найден) | -1 >= 0 -> false (не содержится)
+        return indexOf(value) >= 0;
 
 //        int index = indexOf(value);
 //        if (index >= 0) {
@@ -160,55 +161,65 @@ import java.util.Iterator;
 //            // index меньше нуля (минус 1), значит такое значение не найдено = не содержится в нашем массиве
 //            return false;
 //        }
-        }
+    }
 
-        // Перезаписывает значение по указанному индексу
-        @Override
-        public void set(int index, T value) {
-            if (index >= 0 && index < cursor) {
-                // Если индекс "правильный" присваиваем новое значение
-                array[index] = value;
+    // Перезаписывает значение по указанному индексу
+    @Override
+    public void set(int index, T value) {
+        if (index >= 0 && index < cursor) {
+            // Если индекс "правильный" присваиваем новое значение
+            array[index] = value;
+        }
+        // Если нет, ничего не делаем
+
+    }
+
+    @Override
+    public <T1> void set(Comparator<T1> comparing) {
+
+    }
+
+    @Override
+    public void sort(Comparator<T> comparing) {
+
+    }
+
+    // Является ли коллекция пустой
+    @Override
+    public boolean isEmpty() {
+        // Если курсор равен 0 - значит у нас нет элементов во внутреннем массиве
+        return cursor == 0;
+    }
+
+    // Поиск по значению. Первое вхождение
+    // {1, 100, 5, 5, 100} -> 100 метод вернет индекс первого найдено вхождения = 1
+    public int indexOf(T value) {
+        for (int i = 0; i < cursor; i++) {
+            if (array[i].equals(value)) {
+                return i;
             }
-            // Если нет, ничего не делаем
-
         }
+        return -1;
+    }
 
-        // Является ли коллекция пустой
-        @Override
-        public boolean isEmpty() {
-            // Если курсор равен 0 - значит у нас нет элементов во внутреннем массиве
-            return cursor == 0;
-        }
+    // Метод поиска по значению. Поиск последнего вхождения
+    // Возвращает индекс последнего вхождения значения в массиве
+    // {1, 100, 5, 5, 100} -> 100 метод вернет индекс последнего найдено вхождения = 4
+    public int lastIndexOf(T value) {
 
-        // Поиск по значению. Первое вхождение
-        // {1, 100, 5, 5, 100} -> 100 метод вернет индекс первого найдено вхождения = 1
-        public int indexOf(T value) {
-            for (int i = 0; i < cursor; i++) {
-                if (array[i].equals(value)) {
-                    return i;
-                }
+        for (int i = cursor - 1; i >= 0; i--) {
+            if (array[i].equals(value)) {
+                return i;
             }
-            return -1;
         }
 
-        // Метод поиска по значению. Поиск последнего вхождения
-        // Возвращает индекс последнего вхождения значения в массиве
-        // {1, 100, 5, 5, 100} -> 100 метод вернет индекс последнего найдено вхождения = 4
-        public int lastIndexOf(T value) {
+        return -1;
+    }
 
-            for (int i = cursor - 1; i >= 0; i--) {
-                if (array[i].equals(value)) {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        // Вернуть наш магический массив в виде обычного массива
-        @SuppressWarnings("unchecked")
-        @Override
-        public T[] toArray() {
+    // Вернуть наш магический массив в виде обычного массива
+    @SuppressWarnings("unchecked")
+    @Override
+    public T[] toArray() {
         /*
         1. Создать новый массив размерностью cursor
         2. Пройтись по нашему Внутреннему массиву и скопировать все элементы в новый массив
@@ -216,23 +227,23 @@ import java.util.Iterator;
          */
 
 
-            // Взять какой-то объект из моего массива и узнать на стадии выполнение программы тип этого объекта.
-            // И потом могу создать массив этого типа данных
+        // Взять какой-то объект из моего массива и узнать на стадии выполнение программы тип этого объекта.
+        // И потом могу создать массив этого типа данных
 
-            if (cursor == 0) return null;
-            // if (cursor == 0) return (T[]) new Object[0]; // ошибка в RunTime
+        if (cursor == 0) return null;
+        // if (cursor == 0) return (T[]) new Object[0]; // ошибка в RunTime
 
-            Class<T> clazz = (Class<T>) array[0].getClass();
+        Class<T> clazz = (Class<T>) array[0].getClass();
 //        System.out.println("clazz = " + clazz);
 
-            // Создаю массив того же типа, как и 0-й элемент
-            T[] result = (T[]) Array.newInstance(clazz, cursor);
+        // Создаю массив того же типа, как и 0-й элемент
+        T[] result = (T[]) Array.newInstance(clazz, cursor);
 
-            for (int i = 0; i < result.length; i++) {
-                result[i] = array[i];
-            }
+        for (int i = 0; i < result.length; i++) {
+            result[i] = array[i];
+        }
 
-            return result;
+        return result;
 
 //          Этот код вызывает ошибку
 //        T[] result = (T[]) new Object[cursor];
@@ -240,32 +251,32 @@ import java.util.Iterator;
 //            result[i] = array[i];
 //        }
 
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new MyIterator();
+    }
+    private class MyIterator implements Iterator<T>{
+
+        int currentIndex = 0;
+        //boolean hasNext(); to check if there is next element
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < cursor;
         }
 
         @Override
-        public Iterator<T> iterator() {
-            return new MyIterator();
-        }
-        private class MyIterator implements Iterator<T>{
+        public T next() {
+            T value = array[currentIndex];
+            currentIndex++;
+            return value;
 
-            int currentIndex = 0;
-            //boolean hasNext(); to check if there is next element
-
-            @Override
-            public boolean hasNext() {
-                return currentIndex < cursor;
-            }
-
-            @Override
-            public T next() {
-                T value = array[currentIndex];
-                currentIndex++;
-                return value;
-
-                //return array[currentIndex];
-            }
+            //return array[currentIndex];
         }
     }
+}
 
 /*
 1. Добавлять в массив элемент (не думая об индексах, размере массива) ++
@@ -281,4 +292,3 @@ import java.util.Iterator;
 11. Написать метод lastIndexOf(int value) возвращающий индекс последнего вхождения значения в массиве.
 
  */
-

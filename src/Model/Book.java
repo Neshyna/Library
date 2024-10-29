@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Book {
@@ -10,13 +11,32 @@ public class Book {
     private boolean isBusy;
     private User holder;//data type user
     private int bookId;
+    private LocalDate borrowDate; // Дата, когда была книга взята
 
     public Book(String author, String name, int year,int bookId) {
         this.author = author;
         this.name = name;
         this.year = year;
         this.bookId = bookId;
+        this.isBusy = false; // По умолчанию книга не занята
 
+    }
+
+    // Методы для получения и изменения даты
+    public void setBorrowDate(LocalDate date) {
+        this.borrowDate = date;
+    }
+
+    public LocalDate getBorrowDate() {
+        return borrowDate;
+    }
+
+    // Метод для подсчета дней, которые книга находится у пользователя
+    public long daysHeld() {
+        if (borrowDate != null) {
+            return LocalDate.now().toEpochDay() - borrowDate.toEpochDay();
+        }
+        return 0; // Если дата отсутствует, вернуть 0
     }
 
     @Override
