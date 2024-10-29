@@ -5,6 +5,7 @@ import Model.User;
 import Repo.BookRepo;
 import Repo.UserRepo;
 import Utils.MyList;
+import Utils.PersonValidator;
 
 public class MainServiceImpl implements MainService{
 
@@ -48,7 +49,7 @@ public class MainServiceImpl implements MainService{
     }
 
     @Override
-    public boolean BorrowBook(int bookId) {
+    public boolean borrowBook(int bookId) {
         return false;
     }
 
@@ -63,9 +64,29 @@ public class MainServiceImpl implements MainService{
     }
 
 
+    //author neshyna
     @Override
     public User registerUser(String email, String password) {
-        return null;
+
+        if(!PersonValidator.isEmailValid(email)){
+            System.out.println("Please check email");
+            return  null;
+        }
+
+        if(!PersonValidator.isPasswordValid(password)){
+            System.out.println("Please check password");
+            return null;
+        }
+
+        if (userRepo.isMailExist(email)){
+            System.out.println("Email already exists");
+            return null;
+        }
+
+        User user = userRepo.addUser(email,password);
+
+        return user;
+
     }
 
     @Override
