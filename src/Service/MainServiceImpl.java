@@ -6,6 +6,7 @@ import Model.User;
 import Repo.BookRepo;
 import Repo.UserRepo;
 import Utils.MyList;
+import Utils.PersonValidator;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -104,13 +105,27 @@ public class MainServiceImpl implements MainService{
     }
 
 
+    //author neshyna
     @Override
     public User registerUser(String email, String password) {
-        if (userRepo.isMailExits(email)) {
+
+        if(!PersonValidator.isEmailValid(email)){
+            System.out.println("Please check email");
+            return  null;
+        }
+
+        if(!PersonValidator.isPasswordValid(password)){
+            System.out.println("Please check password");
+            return null;
+        }
+
+        if (userRepo.isMailExist(email)){
             System.out.println("Email already exists");
             return null;
         }
-        User user = userRepo.addUser(email, password);
+
+        User user = userRepo.addUser(email,password);
+
         return user;
 
     }
