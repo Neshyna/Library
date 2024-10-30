@@ -5,7 +5,7 @@ import Utils.MyList;
 
 public interface BookRepo {
 
-    void addBook(String author, String name,int year);
+    Book addBook(int year);
 
     MyList<Book> getAllBooks();
 
@@ -18,17 +18,9 @@ public interface BookRepo {
     MyList<Book>getAllFreeBooks();
 
 
+    void addBook(Book newBook);
 
+    Book findBookById(int bookId);
 
-
-
-
-
-
-
-
-
-
-
-
+    void updateBook(Book book);
 }
