@@ -33,6 +33,4 @@ public interface BookRepo {
     long daysHeld(String name); // Опционально 2. Получить информацию сколько дней книга находится у пользователя
 
     void deleteBook(Book book);     // Удалить книгу
-
-
 }
