@@ -1,6 +1,7 @@
 package Repo;
 
 import Model.Book;
+import Utils.MyArrayList;
 import Utils.MyList;
 
 public class BookRepoImpl implements BookRepo{
@@ -9,6 +10,10 @@ public class BookRepoImpl implements BookRepo{
 
     public BookRepoImpl(MyList<Book> books) {
         this.books = books;
+    }
+
+    public BookRepoImpl(int initialCapacity) {
+        this.books = new MyArrayList<>();
     }
 
     @Override
