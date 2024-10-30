@@ -19,6 +19,11 @@ public class UserRepoImpl implements UserRepo{
     }
 
     @Override
+    public boolean isMailExits(String email) {
+        return false;
+    }
+
+    @Override
     public boolean isMailExist(String email) {
         return false;
     }
