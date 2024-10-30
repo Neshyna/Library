@@ -8,8 +8,6 @@ import Repo.UserRepo;
 import Utils.MyList;
 import Utils.PersonValidator;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public class MainServiceImpl implements MainService{
 
     private final BookRepo bookRepo;
@@ -63,7 +61,16 @@ public class MainServiceImpl implements MainService{
     }
 
     public boolean borrowBook(int bookId) {
-        Book book = bookRepo.addBook(bookId);
+        if (activUser == null) {
+            System.out.println("User not logged in.");
+            return false;
+        }
+        if (activUser.isBlocked()) {
+            System.out.println("User is blocked and cannot borrow books.");
+            return false;
+        }
+
+        Book book = bookRepo.findBookById(bookId);
         if (book == null) {
             System.out.println("Book with ID " + bookId + " not found.");
             return false;
@@ -72,11 +79,14 @@ public class MainServiceImpl implements MainService{
             System.out.println("Book with ID " + bookId + " is already borrowed.");
             return false;
         }
-        book.setBusy(true);
-        bookRepo.addBook(book);
+        book.setBookId(true);
+        bookRepo.updateBook(book);
+
+        activUser.getUserBooks().add(book);
         System.out.println("Book with ID " + bookId + " successfully borrowed.");
         return true;
     }
+
     @Override
     public void returnBook(int bookId) {
         Book book = bookRepo.addBook(bookId);
@@ -89,23 +99,33 @@ public class MainServiceImpl implements MainService{
         }
     }
 
-
     @Override
     public void editBook(int bookId) {
+
+    }
+@Override
+public void editBook(int bookId, String newName, String newAuthor, int newYear) {
         Book book = bookRepo.findBookById(bookId);
-        if (book != null) {
-            book.setName("New Name");
-            book.setAuthor("New Author");
-            book.setYear(2023);
-            bookRepo.updateBook(book);
-            System.out.println("Book with ID " + bookId + " updated successfully.");
-        } else {
-            System.out.println("Book with ID " + bookId + " not found.");
+        if (activUser == null) {
+            System.out.println("User not logged in.");
+            return;
         }
+        if (activUser.getRole() != Role.ADMIN) {
+            System.out.println("Editing a book is only available to administrators.");
+            return;
+        }
+        Book book1 = bookRepo.findBookById(bookId);
+        if (book == null) {
+            System.out.println("Book with ID " + bookId + " not found.");
+            return;
+        }
+        book.setName(newName);
+        book.setAuthor(newAuthor);
+        book.setYear(newYear);
+        bookRepo.updateBook(book);
+        System.out.println("Book with ID " + bookId + " successfully updated.");
     }
 
-
-    //author neshyna
     @Override
     public User registerUser(String email, String password) {
 
@@ -129,8 +149,6 @@ public class MainServiceImpl implements MainService{
         return user;
 
     }
-
-
     @Override
     public boolean loginUser(String email, String password) {
         User user = userRepo.getUserEmail(email);

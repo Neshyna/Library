@@ -36,7 +36,7 @@ public class Book {
         return bookId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(boolean bookId) {
         this.bookId = bookId;
     }
 

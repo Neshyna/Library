@@ -25,7 +25,7 @@ public interface MainService {
     public void editBook(int bookId);
 
 
-
+    void editBook(int bookId, String newName, String newAuthor, int newYear);
 
     User registerUser(String email, String password);
 
