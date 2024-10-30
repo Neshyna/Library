@@ -79,9 +79,6 @@ public class MainServiceImpl implements MainService{
             System.out.println("Book with ID " + bookId + " is already borrowed.");
             return false;
         }
-        book.setBookId(true);
-        bookRepo.updateBook(book);
-
         activUser.getUserBooks().add(book);
         System.out.println("Book with ID " + bookId + " successfully borrowed.");
         return true;
