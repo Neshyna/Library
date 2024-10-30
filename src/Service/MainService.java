@@ -18,7 +18,7 @@ public interface MainService {
 
     MyList<Book> getAllFreeBooks();
 
-    boolean BorrowBook(int bookId);
+    boolean borrowBook(int bookId);
 
     public void returnBook(int bookId);
 
