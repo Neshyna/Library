@@ -37,7 +37,6 @@ public class Menu {
                 System.out.println("Good bye");
                 System.exit(0);//end app work
             }
-
             showSubMenu(choice);
         }
 
