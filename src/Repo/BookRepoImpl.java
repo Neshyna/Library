@@ -1,15 +1,9 @@
 package Repo;
 
 
-import java.util.Comparator;
-import java.time.LocalDate;
-
 import Model.Book;
 import Utils.MyArrayList;
 import Utils.MyList;
-
-
-import java.time.LocalDate;
 
 
 public class BookRepoImpl implements BookRepo{
@@ -17,8 +11,8 @@ public class BookRepoImpl implements BookRepo{
 
     private final MyList<Book> books;
 
-    public BookRepoImpl(MyList<Book> books) {
-        this.books = books;
+    public BookRepoImpl() {
+        this.books = new MyArrayList<>();//changed by neshyna
     }
 
 
@@ -29,12 +23,7 @@ public class BookRepoImpl implements BookRepo{
         Book newBook = new Book(author, name, year, bookId);
         books.add(newBook);
 
-    public BookRepoImpl(int initialCapacity) {
-        this.books = new MyArrayList<>();
 
-    }
-
- 
 
     @Override
     //получить книгу по полному названию

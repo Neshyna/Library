@@ -4,9 +4,7 @@ import Model.User;
 
 public interface UserRepo {
 
-     User addUser(String email, String password);
-
-     boolean isMailExits(String email);
+    User addUser(String email, String password);
 
     boolean isMailExist(String email);
 

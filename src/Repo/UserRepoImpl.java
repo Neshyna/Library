@@ -8,10 +8,10 @@ public class UserRepoImpl implements UserRepo {
 
     private final MyList<User> users;
 
-    public UserRepoImpl(int initialCapacity) {
+    public UserRepoImpl() {
             this.users = new MyArrayList<>();
-
     }
+
  @Override
     public User addUser(String email, String password) {
 
@@ -24,7 +24,6 @@ public class UserRepoImpl implements UserRepo {
         User newUser = new User(new MyArrayList<>(), password, email); // Создаем нового пользователя
         users.add(newUser); // Добавляем пользователя в список
         return newUser; // Возвращаем нового пользователя
-
     }
 
     @Override

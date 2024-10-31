@@ -7,12 +7,20 @@ import Repo.BookRepo;
 import Repo.BookRepoImpl;
 import Repo.UserRepo;
 import Repo.UserRepoImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MainServiceImplTest {
 
     private BookRepo bookRepo;
@@ -21,6 +29,8 @@ class MainServiceImplTest {
     private User adminUser;
     private User regularUser;
     private Book bookId;
+    String startEmail = "Neshyna@test.com";
+    String startPassword = "Neshyna100%";
 
     @BeforeEach
     void setUp() {
@@ -111,5 +121,70 @@ class MainServiceImplTest {
 
         Book book = bookRepo.findBookById(1);
         assertNotEquals("New Title", book.getName());
+    }
+
+    @Test
+    void testValidEmailSet() {
+        String validEmail = "Valid123@test.com";
+        regularUser.setEmail(validEmail);
+        System.out.println("getEamil: " + regularUser.getEmail());
+        Assertions.assertEquals(validEmail, regularUser.getEmail());
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidEmailData")
+    void testInvalidEmailSet(String invalidEmail) {
+        regularUser.setEmail(invalidEmail);
+        Assertions.assertNotEquals(invalidEmail,regularUser.getEmail());
+        Assertions.assertEquals(startEmail,regularUser.getEmail());
+    }
+    static Stream<String> invalidEmailData(){
+        return Stream.of(
+                "testmail.net",
+                "test@@mail.net",
+                "test@mai@l.net",
+                "test@mailnet",
+                "test@mail.ne.t",
+                "test@mail.net.",
+                "test@mailne.t",
+                "test@ mail.net",
+                "test@ma!il.net",
+                "t#est@mail.net",
+                "test@mail.?net",
+                "@testmail.net",
+                "1test@mail.net",
+                "_test@mail.net",
+                "-t@mail.net",
+                ".est@mail.net",
+                "test+1@mail.net"
+                //add upper case
+        );
+    }
+
+    @Test
+    void testValidPasswordSet(){
+        String validPassword = "Test_123";
+        //i.e. String validPassword = "Test123"; with incorrect pass will fail
+        regularUser.setPassword(validPassword);
+        System.out.println("validPassword: " + regularUser.getPassword());
+        Assertions.assertEquals(validPassword,regularUser.getPassword());
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidPassword")
+    void testInvalidPassword(String invalidPassword){
+        regularUser.setPassword(invalidPassword);
+        Assertions.assertEquals(startPassword,regularUser.getPassword());
+        Assertions.assertNotEquals(invalidPassword,regularUser.getPassword());
+    }
+    static Stream<String> invalidPassword(){
+        return Stream.of(
+                "Test_1",//length less than 8
+                "Test_test",//no numbers
+                "TEST_123",//no lower case
+                "test_123",//no upper case
+                "Test123456"//no special symbol
+                //"Test_123" test will fail as well as email passed gut
+        );
     }
 }
