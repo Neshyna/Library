@@ -25,7 +25,7 @@ public class MainServiceImpl implements MainService{
             System.out.println("Adding a new book is only available to administrators");
             return;
         }
-        Book newBook = new Book(name, author, year);
+        Book newBook = new Book(name, author, year, bookId);
         bookRepo.addBook(newBook);
         System.out.println("Book added successfully");
     }
@@ -146,26 +146,6 @@ public void editBook(int bookId, String newName, String newAuthor, int newYear) 
 
         return user;
 
-    }
-
-        if(!PersonValidator.isEmailValid(email)){
-            System.out.println("Please check email");
-            return  null;
-        }
-
-        if(!PersonValidator.isPasswordValid(password)){
-            System.out.println("Please check password");
-            return null;
-        }
-
-        if (userRepo.isMailExist(email)){
-            System.out.println("Email already exists");
-            return null;
-        }
-
-        User user = userRepo.addUser(email,password);
-
-        return user;
 
     }
     @Override
@@ -189,4 +169,5 @@ public void editBook(int bookId, String newName, String newAuthor, int newYear) 
         return activUser;
     }
 }
+
 

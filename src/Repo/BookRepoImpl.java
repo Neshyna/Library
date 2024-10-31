@@ -24,8 +24,8 @@ public class BookRepoImpl implements BookRepo{
 
     @Override
     //добавление новой книги в коллекцию
-    public void addBook(String author, String name, int year) {
-        int bookId = books.size() + 1; // Присваиваем уникальный ID
+    public void addBook(String author, String name, int year, int bookId) {
+        bookId = books.size() + 1; // Присваиваем уникальный ID
         Book newBook = new Book(author, name, year, bookId);
         books.add(newBook);
 

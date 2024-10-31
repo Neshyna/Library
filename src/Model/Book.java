@@ -11,11 +11,11 @@ public class Book {
     private User holder;//data type user
     private int bookId;
 
-    public Book(String author, String name, int year) {
+    public Book(String author, String name, int year, Book bookId) {
         this.author = author;
         this.name = name;
         this.year = year;
-        this.bookId = bookId;
+        this.bookId = this.bookId;
 
     }
 
