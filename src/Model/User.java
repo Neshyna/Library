@@ -4,21 +4,38 @@ import Utils.MyList;
 
 public class User {
 
+    private static int userIdCounter = 0; // Статический счетчик для генерации уникальных ID
+    private final int id; // Уникальный идентификатор
     private String email;
     private String password;
     private Role role;
+    boolean isBlocked;
 
     private final MyList<Book> userBooks;
 
-    public User(MyList<Book> userBooks,String password, String email) {
+    public User(MyList<Book> userBooks, String password, String email) {
+
         this.userBooks = userBooks;
         this.role = Role.USER;
         this.password = password;
         this.email = email;
+
+        this.id = ++userIdCounter; // Генерируем уникальный ID
+
+        this.isBlocked = isBlocked;
     }
 
-    public String getEmail() {
-        return email;
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+
+    }
+
+    public int getId() {
+        return id; // Метод для получения ID
     }
 
     public void setEmail(String email) {
@@ -45,13 +62,18 @@ public class User {
         return userBooks;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
+                "id=" + id +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", userBooks=" + userBooks +
                 '}';
     }
+
+
+
 }

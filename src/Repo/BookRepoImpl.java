@@ -1,15 +1,19 @@
 package Repo;
 
+
 import java.util.Comparator;
 import java.time.LocalDate;
+
 import Model.Book;
-import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
 
+
 import java.time.LocalDate;
 
-public class BookRepoImpl implements BookRepo {
+
+public class BookRepoImpl implements BookRepo{
+
 
     private final MyList<Book> books;
 
@@ -17,19 +21,20 @@ public class BookRepoImpl implements BookRepo {
         this.books = books;
     }
 
+
     @Override
     //добавление новой книги в коллекцию
     public void addBook(String author, String name, int year) {
         int bookId = books.size() + 1; // Присваиваем уникальный ID
         Book newBook = new Book(author, name, year, bookId);
         books.add(newBook);
+
+    public BookRepoImpl(int initialCapacity) {
+        this.books = new MyArrayList<>();
+
     }
 
-    @Override
-    // Получить список всех книг
-    public MyList<Book> getAllBooks() {
-        return books;
-    }
+ 
 
     @Override
     //получить книгу по полному названию
@@ -66,11 +71,19 @@ public class BookRepoImpl implements BookRepo {
             }
         }
         return busyBooks;
-    }
+
+       }
 
     @Override
-    // Получить список свободных книг
+    public MyList<Book> getAllBooks() {
+        return null;
+    }
+
+    
+
+    @Override
     public MyList<Book> getAllFreeBooks() {
+
         MyList<Book> freeBooks = new MyArrayList<>();
         for (Book book : books) {
             if (!book.isBusy()) {
@@ -92,6 +105,7 @@ public class BookRepoImpl implements BookRepo {
             }
         }
         return null; // Если книга не найдена, возвращаем null
+
     }
 */
 
@@ -127,46 +141,15 @@ public class BookRepoImpl implements BookRepo {
         sortedBooks.addAll(books.toArray()); // Копируем книги из исходного списка в новый
         sortedBooks.sort(Comparator.comparing(Book::getName)); // Сортируем по имени
         return sortedBooks; // Возвращаем отсортированный список
-    }
-    */
 
-/*
-     @Override
-     //Взятие книги (изменяет статус на занятый и устанавливает пользователя)
-     public boolean borrowBook(String name, User user) {
-        for (Book book : books) {
-            if (book.getName().equalsIgnoreCase(name)) {
-                 if (book.isBusy()) {
-                   System.out.println("Book is already borrowed by another user.");
-                   return false;
-                 } else {
-                     book.setBusy(true);
-                    book.setHolder(user);
-                    return true;
-               }
-           }
-        }
-        System.out.println("Book not found.");
-         return false;
-     }
-*/
-
-
-    /* @Override
-     // Возврат книги в библиотеку (освобождает книгу)
-     public boolean returnBook(String name) {
-         for (Book book : books) {
-         if (book.getName().equalsIgnoreCase(name) && book.isBusy()) {
-               book.setBusy(false);
-                 book.setHolder(null);
-                return true;
-            }
-        }
-        System.out.println("Book is either not found or not currently borrowed.");
-         return false;
-    }
+    
     */
 
 
+    @Override
+    public Book findBookById(int bookId) {
+        return null;
+    }
 
 }
+

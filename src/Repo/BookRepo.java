@@ -1,28 +1,33 @@
 package Repo;
 
 import Model.Book;
-import Model.User;
 import Utils.MyList;
 
 import java.time.LocalDate;
+
 
 public interface BookRepo {
 
     void addBook(String author, String name,int year);//добавление новой книги в коллекцию
 
-    MyList<Book> getAllBooks();  // получить список всех книг
+    MyList<Book> getAllBooks();
 
-    Book getByName(String name);  //получить книгу по полному названию
+
+    Book getByName(String name);
+
 
     MyList<Book> getByAuthor(String author); //получить книгу по полному имени автора
 
-    MyList<Book> getAllBusyBooks(); // Получение всех книг, находящихся у читателей
-
-    MyList<Book>getAllFreeBooks(); // Получить список свободных книг
+    MyList<Book> getAllBusyBooks();
 
 
+    MyList<Book>getAllFreeBooks();
 
-//Дополнительные и опциональные (предлагаю):
+
+
+
+
+   //Дополнительные и опциональные (предлагаю):
     // MyList<Book> findByNamePart(String namePart);  // Поиск книги по полному или частичному названию
 
    //MyList<Book> findByAuthor(String authorPart);  // Поиск книги по полному или частичному имени автора
@@ -36,5 +41,10 @@ public interface BookRepo {
    //boolean returnBook(String name);// Возврат книги в библиотеку (освобождает книгу)
 
 
+    Book findBookById(int bookId);
+
+
+
+    void editBook(Book book);
 
 }
