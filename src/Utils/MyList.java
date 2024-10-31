@@ -1,5 +1,7 @@
 package Utils;
 
+import java.util.Comparator;
+
 public interface MyList<T> extends Iterable<T> {
     /**
      * Добавить элемент
@@ -98,5 +100,6 @@ public interface MyList<T> extends Iterable<T> {
 
     void set (int index, T value);
 
+    void sort(Comparator<T> comparing);
 }
 

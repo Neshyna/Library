@@ -1,21 +1,24 @@
 package Repo;
 
-
 import Model.Book;
 import Utils.MyArrayList;
 import Utils.MyList;
+import java.util.Comparator;
 
 
 public class BookRepoImpl implements BookRepo{
 
-
     private final int books;
-
 
     public BookRepoImpl(int books) {// метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.он нужен в MainServiceTest
         this.books = new MyArrayList<>();
     }
 
+    @Override
+    // Получить список всех книг
+    public MyList<Book> getAllBooks() {
+        return books;
+    }
 
     @Override //добавление новой книги в коллекцию
     public void addBook(String author, String name, int year, int bookId) {
@@ -24,31 +27,28 @@ public class BookRepoImpl implements BookRepo{
         books.add(newBook);
     }
 
-
     @Override
-    //получить книгу по полному названию
-    public Book getByName(String name) {
-        MyList<Book> result = new MyArrayList<>();
+    // Поиск книги по полному или частичному названию
+    public MyList<Book> getByNamePart(String namePart) {
         for (Book book : books) {
-            if (book.getName().toLowerCase().contains(name.toLowerCase())) {
-                result.add(book);
+            if (book.getName().toLowerCase().contains(namePart.toLowerCase())) {
+                return (MyList<Book>) book; // Возвращаем первую найденную книгу
             }
         }
-        return (Book) result;
+        return null; // Если книга не найдена, возвращаем null
     }
 
     @Override
-    //получить книгу по полному имени автора
-    public MyList<Book> getByAuthor(String author) {
+    //Поиск книги по полному или частичному имени автора
+    public MyList<Book> getByAuthor(String authorPart) {
         MyList<Book> result = new MyArrayList<>();
         for (Book book : books) {
-            if (book.getAuthor().toLowerCase().contains(author.toLowerCase())) {
+            if (book.getAuthor().toLowerCase().contains(authorPart.toLowerCase())) {
                 result.add(book);
             }
         }
         return result;
     }
-
 
     @Override
     // Получение всех книг, находящихся у читателей
@@ -60,18 +60,11 @@ public class BookRepoImpl implements BookRepo{
             }
         }
         return busyBooks;
-       }
+   }
 
     @Override
-    public MyList<Book> getAllBooks() {
-        return null;
-    }
-
-    
-
-    @Override
+    // Получить список свободных книг
     public MyList<Book> getAllFreeBooks() {
-
         MyList<Book> freeBooks = new MyArrayList<>();
         for (Book book : books) {
             if (!book.isBusy()) {
@@ -81,58 +74,23 @@ public class BookRepoImpl implements BookRepo{
         return freeBooks;
     }
 
-
-    //Дополнительные и опциональные (предлагаю):
-
-   /* @Override
-    // Поиск книги по полному или частичному названию
-    public MyList<Book> findByNamePart(String namePart) {
-        for (Book book : books) {
-            if (book.getName().toLowerCase().contains(namePart.toLowerCase())) {
-                return (MyList<Book>) book; // Возвращаем первую найденную книгу
-            }
-        }
-        return null; // Если книга не найдена, возвращаем null
-
-    }
-*/
-
-
-     /*@Override
-    //Поиск книги по полному или частичному имени автора
-    public MyList<Book> findByAuthor(String authorPart) {
-        MyList<Book> result = new MyArrayList<>();
-        for (Book book : books) {
-            if (book.getAuthor().toLowerCase().contains(authorPart.toLowerCase())) {
-                result.add(book);
-            }
-        }
-        return result;
-    }
-    */
-
-    //Опционально 2
-    /*
     //Список всех книг, отсортированный по автору
     @Override
     public MyList<Book> getBooksSortedByAuthor() {
         MyList<Book> sortedBooks = new MyArrayList<>(); // Создаем новый список для сортированных книг
         sortedBooks.addAll(books.toArray()); // Копируем книги из исходного списка в новый
-        sortedBooks.sort(Comparator.comparing(Book::getAuthor)); // Сортируем по автору
+        ((MyArrayList<Book>) sortedBooks).sort(Comparator.comparing(Book::getAuthor)); // Сортируем по автору
         return sortedBooks; // Возвращаем отсортированный список
-    }*/
+    }
 
     // Список всех книг, отсортированный по названию книги
-    /* @Override
+    @Override
     public MyList<Book> getBooksSortedByName() {
         MyList<Book> sortedBooks = new MyArrayList<>(); // Создаем новый список для сортированных книг
         sortedBooks.addAll(books.toArray()); // Копируем книги из исходного списка в новый
-        sortedBooks.sort(Comparator.comparing(Book::getName)); // Сортируем по имени
+        ((MyArrayList<Book>) sortedBooks).sort(Comparator.comparing(Book::getName)); // Сортируем по имени
         return sortedBooks; // Возвращаем отсортированный список
-
-    
-    */
-
+    }
 
     @Override
     public Book findBookById(int bookId) {
