@@ -1,18 +1,18 @@
 package Repo;
 
 import Model.User;
+import Utils.MyArrayList;
 import Utils.MyList;
 
 public class UserRepoImpl implements UserRepo{
 
     private final MyList<User> users;
 
-    public UserRepoImpl(MyList<User> users) {
+    public UserRepoImpl(int initialCapacity) {
+            this.users = new MyArrayList<>();
 
-        this.users = users;
     }
-
-    @Override
+ @Override
     public User addUser(String email, String password) {
 
         return null;
