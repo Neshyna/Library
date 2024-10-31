@@ -46,6 +46,16 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
+    public User findUserByEmail(String email) {
+        for (User user : users) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                return user;
+            }
+        }
+        return null; // если user не найден
+    }
+
+    @Override
     public User findUserById(int userId) {
         for (User user : users) {
             if (user.getId() == userId) {
