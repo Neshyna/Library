@@ -19,9 +19,7 @@ public class User {
         this.role = Role.USER;
         this.password = password;
         this.email = email;
-
         this.id = ++userIdCounter; // Генерируем уникальный ID
-
         this.isBlocked = isBlocked;
     }
 
@@ -31,7 +29,6 @@ public class User {
 
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
-
     }
 
     public String getEmail() {

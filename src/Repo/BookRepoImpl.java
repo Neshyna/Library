@@ -3,33 +3,28 @@ package Repo;
 import Model.Book;
 import Utils.MyArrayList;
 import Utils.MyList;
-
 import java.util.Comparator;
 
-public class BookRepoImpl implements BookRepo {
 
-    private final MyList<Book> books;
+public class BookRepoImpl implements BookRepo{
 
-    public BookRepoImpl(MyList<Book> books) {
-        this.books = books;
-    }
+    private final int books;
 
-    @Override
-    public void addBook(String author, String name, int year) {
-        int bookId = books.size() + 1; // Присваиваем уникальный ID
-        Book newBook = new Book(author, name, year, bookId);
-        books.add(newBook);
-    }
-
-    @Override
-    public void addBook(String authorPart, String namePart, int year, int bookId) {
-
+    public BookRepoImpl(int books) {// метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.он нужен в MainServiceTest
+        this.books = new MyArrayList<>();
     }
 
     @Override
     // Получить список всех книг
     public MyList<Book> getAllBooks() {
         return books;
+    }
+
+    @Override //добавление новой книги в коллекцию
+    public void addBook(String author, String name, int year, int bookId) {
+        bookId = books.size() + 1; // Присваиваем уникальный ID
+        Book newBook = new Book(author, name, year, bookId);
+        books.add(newBook);
     }
 
     @Override
@@ -65,8 +60,7 @@ public class BookRepoImpl implements BookRepo {
             }
         }
         return busyBooks;
-    }
-
+   }
 
     @Override
     // Получить список свободных книг
