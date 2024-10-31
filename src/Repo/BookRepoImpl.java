@@ -9,20 +9,20 @@ import Utils.MyList;
 public class BookRepoImpl implements BookRepo{
 
 
-    private final MyList<Book> books;
+    private final int books;
 
-    public BookRepoImpl() {
-        this.books = new MyArrayList<>();//changed by neshyna
+
+    public BookRepoImpl(int books) {// метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.он нужен в MainServiceTest
+        this.books = new MyArrayList<>();
     }
 
 
-    @Override
-    //добавление новой книги в коллекцию
+    @Override //добавление новой книги в коллекцию
     public void addBook(String author, String name, int year, int bookId) {
         bookId = books.size() + 1; // Присваиваем уникальный ID
         Book newBook = new Book(author, name, year, bookId);
         books.add(newBook);
-
+    }
 
 
     @Override
@@ -60,7 +60,6 @@ public class BookRepoImpl implements BookRepo{
             }
         }
         return busyBooks;
-
        }
 
     @Override
