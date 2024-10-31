@@ -12,8 +12,9 @@ public class BookRepoImpl implements BookRepo{
     }
 
     @Override
-    public void addBook(String author, String name, int year) {
+    public Book addBook(int year) {
 
+        return null;
     }
 
     @Override
@@ -39,5 +40,20 @@ public class BookRepoImpl implements BookRepo{
     @Override
     public MyList<Book> getAllFreeBooks() {
         return null;
+    }
+
+    @Override
+    public void addBook(Book newBook) {
+
+    }
+
+    @Override
+    public Book findBookById(int bookId) {
+        return null;
+    }
+
+    @Override
+    public void updateBook(Book book) {
+
     }
 }

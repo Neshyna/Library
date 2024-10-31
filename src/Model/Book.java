@@ -11,7 +11,7 @@ public class Book {
     private User holder;//data type user
     private int bookId;
 
-    public Book(String author, String name, int year,int bookId) {
+    public Book(String author, String name, int year) {
         this.author = author;
         this.name = name;
         this.year = year;
