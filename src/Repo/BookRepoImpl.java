@@ -11,8 +11,9 @@ public class BookRepoImpl implements BookRepo{
 
     private final int books;
 
-    public BookRepoImpl(int books)  // метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.
-    { this.books = books;           // он нужен в MainServiceTest
+
+    public BookRepoImpl(int books) {// метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.он нужен в MainServiceTest
+        this.books = new MyArrayList<>();
     }
 
 
@@ -21,6 +22,7 @@ public class BookRepoImpl implements BookRepo{
         bookId = books.size() + 1; // Присваиваем уникальный ID
         Book newBook = new Book(author, name, year, bookId);
         books.add(newBook);
+    }
 
 
     @Override
@@ -58,7 +60,6 @@ public class BookRepoImpl implements BookRepo{
             }
         }
         return busyBooks;
-
        }
 
     @Override
