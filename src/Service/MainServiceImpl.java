@@ -13,6 +13,7 @@ public class MainServiceImpl implements MainService{
     private final BookRepo bookRepo;
     private final UserRepo userRepo;
     private User activUser;
+    private Book bookId;
 
     public MainServiceImpl(BookRepo bookRepo, UserRepo userRepo) {
         this.bookRepo = bookRepo;
@@ -57,10 +58,6 @@ public class MainServiceImpl implements MainService{
 
     @Override
     public boolean borrowBook(int bookId) {
-        return false;
-    }
-
-    public boolean borrowBook(int bookId) {
         if (activUser == null) {
             System.out.println("User not logged in.");
             return false;
@@ -86,10 +83,11 @@ public class MainServiceImpl implements MainService{
 
     @Override
     public void returnBook(int bookId) {
-        Book book = bookRepo.addBook(bookId);
+
+        Book book = bookRepo.getBookById(bookId);
         if (book != null && book.isBusy()) {
             book.setBusy(false);
-            bookRepo.addBook(book);
+            bookRepo.updateBook(book);
             System.out.println("Book with ID " + bookId + " successfully returned.");
         } else {
             System.out.println("Book with ID " + bookId + " is not currently borrowed or does not exist.");
@@ -97,11 +95,7 @@ public class MainServiceImpl implements MainService{
     }
 
     @Override
-    public void editBook(int bookId) {
-
-    }
-@Override
-public void editBook(int bookId, String newName, String newAuthor, int newYear) {
+    public void editBook(int bookId, String newName, String newAuthor, int newYear) {
         Book book = bookRepo.findBookById(bookId);
         if (activUser == null) {
             System.out.println("User not logged in.");

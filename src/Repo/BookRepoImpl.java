@@ -1,40 +1,27 @@
 package Repo;
 
 
-import java.util.Comparator;
-import java.time.LocalDate;
-
 import Model.Book;
 import Utils.MyArrayList;
 import Utils.MyList;
 
 
-import java.time.LocalDate;
-
-
 public class BookRepoImpl implements BookRepo{
 
 
-    private final MyList<Book> books;
+    private final int books;
 
-    public BookRepoImpl(MyList<Book> books) {
-        this.books = books;
+    public BookRepoImpl(int books)  // метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.
+    { this.books = books;           // он нужен в MainServiceTest
     }
 
 
-    @Override
-    //добавление новой книги в коллекцию
+    @Override //добавление новой книги в коллекцию
     public void addBook(String author, String name, int year, int bookId) {
         bookId = books.size() + 1; // Присваиваем уникальный ID
         Book newBook = new Book(author, name, year, bookId);
         books.add(newBook);
 
-    public BookRepoImpl(int initialCapacity) {
-        this.books = new MyArrayList<>();
-
-    }
-
- 
 
     @Override
     //получить книгу по полному названию
