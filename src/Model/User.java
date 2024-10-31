@@ -9,16 +9,29 @@ public class User {
     private String email;
     private String password;
     private Role role;
+    boolean isBlocked;
 
     private final MyList<Book> userBooks;
 
-    public User(MyList<Book> userBooks,String password, String email) {
+    public User(MyList<Book> userBooks, String password, String email) {
 
         this.userBooks = userBooks;
         this.role = Role.USER;
         this.password = password;
         this.email = email;
+
         this.id = ++userIdCounter; // Генерируем уникальный ID
+
+        this.isBlocked = isBlocked;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+
     }
 
     public int getId() {
@@ -60,4 +73,7 @@ public class User {
                 ", userBooks=" + userBooks +
                 '}';
     }
+
+
+
 }

@@ -1,6 +1,7 @@
 package Repo;
 
 import Model.Book;
+import Utils.MyArrayList;
 import Utils.MyList;
 
 public class BookRepoImpl implements BookRepo{
@@ -11,9 +12,14 @@ public class BookRepoImpl implements BookRepo{
         this.books = books;
     }
 
-    @Override
-    public void addBook(String author, String name, int year) {
+    public BookRepoImpl(int initialCapacity) {
+        this.books = new MyArrayList<>();
+    }
 
+    @Override
+    public Book addBook(int year) {
+
+        return null;
     }
 
     @Override
@@ -39,5 +45,20 @@ public class BookRepoImpl implements BookRepo{
     @Override
     public MyList<Book> getAllFreeBooks() {
         return null;
+    }
+
+    @Override
+    public void addBook(Book newBook) {
+
+    }
+
+    @Override
+    public Book findBookById(int bookId) {
+        return null;
+    }
+
+    @Override
+    public void updateBook(Book book) {
+
     }
 }
