@@ -20,6 +20,7 @@ class MainServiceImplTest {
     private MainServiceImpl mainService;
     private User adminUser;
     private User regularUser;
+    private Book bookId;
 
     @BeforeEach
     void setUp() {
@@ -58,7 +59,7 @@ class MainServiceImplTest {
     void testBorrowBookAsLoggedInUser() {
         mainService.loginUser("user@example.com", "userPassword");
 
-        Book book = new Book("Clean Code", "Robert C. Martin", 2008);
+        Book book = new Book("Clean Code", "Robert C. Martin", 2008, bookId);
         bookRepo.addBook(book);
 
         boolean result = mainService.borrowBook(1);
@@ -78,7 +79,7 @@ class MainServiceImplTest {
     void testReturnBook() {
         mainService.loginUser("user@example.com", "userPassword");
 
-        Book book = new Book("Design Patterns", "Erich Gamma", 1994);
+        Book book = new Book("Design Patterns", "Erich Gamma", 1994, bookId);
         book.setBusy(true);
         bookRepo.addBook(book);
 
@@ -91,7 +92,7 @@ class MainServiceImplTest {
     void testEditBookAsAdmin() {
         mainService.loginUser("admin@example.com", "adminPassword");
 
-        Book book = new Book("Old Title", "Old Author", 1999);
+        Book book = new Book("Old Title", "Old Author", 1999, bookId);
         bookRepo.addBook(book);
 
         mainService.editBook(1, "New Title", "New Author", 2020);
