@@ -56,7 +56,7 @@ public class MainServiceImpl implements MainService{
     }
 
     @Override
-    public boolean BorrowBook(int bookId) {
+    public boolean borrowBook(int bookId) {
         return false;
     }
 
@@ -123,8 +123,30 @@ public void editBook(int bookId, String newName, String newAuthor, int newYear) 
         System.out.println("Book with ID " + bookId + " successfully updated.");
     }
 
+    //author neshyna
     @Override
     public User registerUser(String email, String password) {
+
+        if(!PersonValidator.isEmailValid(email)){
+            System.out.println("Please check email");
+            return  null;
+        }
+
+        if(!PersonValidator.isPasswordValid(password)){
+            System.out.println("Please check password");
+            return null;
+        }
+
+        if (userRepo.isMailExist(email)){
+            System.out.println("Email already exists");
+            return null;
+        }
+
+        User user = userRepo.addUser(email,password);
+
+        return user;
+
+    }
 
         if(!PersonValidator.isEmailValid(email)){
             System.out.println("Please check email");
