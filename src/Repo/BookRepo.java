@@ -22,5 +22,8 @@ public interface BookRepo {
 
     Book findBookById(int bookId);
 
-    void updateBook(Book book);
+    void deleteBook(Book book);     // Удалить книгу
+
+    void editBook(Book book);
+
 }
