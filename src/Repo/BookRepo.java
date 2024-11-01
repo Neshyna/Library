@@ -7,13 +7,13 @@ import Utils.MyList;
 public interface BookRepo {
 
 
-    void addBook(String authorPart, String namePart,int year, int bookId);//добавление новой книги в коллекцию
+    MyList<Book> getAllBooks();
 
-    MyList<Book> getAllBooks();  // получить список всех книг
+    void addBook(String authorPart, String namePart, int year, int bookId);//добавление новой книги в коллекцию
 
     MyList<Book> getByNamePart(String namePart);  // Поиск книги по полному или частичному названию
 
-    MyList<Book> getByAuthor(String authorPart);  // Поиск книги по полному или частичному имени автора
+    MyList<Book> getByAuthor(String authorPart);
 
     MyList<Book> getAllBusyBooks(); // Получение всех книг, находящихся у читателей
 
@@ -27,11 +27,16 @@ public interface BookRepo {
 
     // Этот метод создает новую книгу и добавляет ее в репозиторий bookRepo.Реализовуется в MainServiceImpl
     void addNewBook(Book newBook);
-    // Этот метод обновляет информацию о книге в репозитории bookRepo. Реализовуется в MainServiceImpl
+
+
+
     void updateBook(Book book);
-    // Этот метод используется для поиска книги в репозитории по её уникальному идентификатору bookId. Реализовуется в MainServiceImpl
-    Book getBookById(int bookId);
 
-    public void addDefaultBooks();
 
+
+    public static void addDefaultBooks(){
+    }
+
+  Book getBookById(int bookId);
 }
+
