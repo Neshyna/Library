@@ -23,16 +23,15 @@ public interface BookRepo {
 
     MyList<Book> getBooksSortedByName(); //Опционально 2  Список всех книг, отсортированный по названию книги
 
-    Book findBookById(int bookId);
-
-
 
 
     // Этот метод создает новую книгу и добавляет ее в репозиторий bookRepo.Реализовуется в MainServiceImpl
-    void addBook(Book newBook);
+    void addNewBook(Book newBook);
     // Этот метод обновляет информацию о книге в репозитории bookRepo. Реализовуется в MainServiceImpl
     void updateBook(Book book);
     // Этот метод используется для поиска книги в репозитории по её уникальному идентификатору bookId. Реализовуется в MainServiceImpl
     Book getBookById(int bookId);
+
+    public void addDefaultBooks();
 
 }

@@ -1,6 +1,8 @@
 package Utils;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 /*
 
@@ -172,6 +174,14 @@ import java.util.Iterator;
             // Если нет, ничего не делаем
 
         }
+
+
+        //Todo edit mathod
+        @Override
+        public void sort(Comparator<T> comparing) {
+            Arrays.sort(array, comparing);
+        }
+
 
         // Является ли коллекция пустой
         @Override
