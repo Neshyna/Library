@@ -4,9 +4,10 @@ import Model.Book;
 import Utils.MyArrayList;
 import Utils.MyList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class BookRepoImpl implements BookRepo{
+public class BookRepoImpl implements BookRepo {
 
     private final MyList<Book> books;
 
@@ -17,23 +18,25 @@ public class BookRepoImpl implements BookRepo{
         addDefaultBooks();
     }
 
-    public void addDefaultBooks(){
+    public void addDefaultBooks() {
         books.addAll(
                 new Book("Neshyna1", "Masha1", 1234, 1),
                 new Book("Neshyna2", "Masha2", 1234, 2),
-                new Book("Neshyna3", "Masha3", 1234,3)
+                new Book("Neshyna3", "Masha3", 1234, 3)
         );
     }
 
     @Override
-    // Получить список всех книг
     public MyList<Book> getAllBooks() {
         return books;
     }
 
     @Override //добавление новой книги в коллекцию
     public void addBook(String author, String name, int year, int bookId) {
-        bookId = books.size() + 1; // Присваиваем уникальный ID
+        if (author == null) {
+            throw new IllegalArgumentException("Author cannot be null");
+        }
+            int bookID = currentId.getAndIncrement();  // Присваиваем уникальный ID
         Book newBook = new Book(author, name, year, bookId);
         books.add(newBook);
     }
@@ -41,16 +44,16 @@ public class BookRepoImpl implements BookRepo{
     @Override
     // Поиск книги по полному или частичному названию
     public MyList<Book> getByNamePart(String namePart) {
+        MyList<Book> foundBooks = new MyArrayList<>();
         for (Book book : books) {
-            if (book.getName().toLowerCase().contains(namePart.toLowerCase())) {
-                return (MyList<Book>) book; // Возвращаем первую найденную книгу
+            if (book.getName().contains(namePart)) {
+                foundBooks.add(book);
             }
         }
-        return null; // Если книга не найдена, возвращаем null
+        return foundBooks;
     }
 
     @Override
-    //Поиск книги по полному или частичному имени автора
     public MyList<Book> getByAuthor(String authorPart) {
         MyList<Book> result = new MyArrayList<>();
         for (Book book : books) {
@@ -71,7 +74,7 @@ public class BookRepoImpl implements BookRepo{
             }
         }
         return busyBooks;
-   }
+    }
 
     @Override
     // Получить список свободных книг
@@ -88,38 +91,56 @@ public class BookRepoImpl implements BookRepo{
     //Список всех книг, отсортированный по автору
     @Override
     public MyList<Book> getBooksSortedByAuthor() {
-        MyList<Book> sortedBooks = new MyArrayList<>(); // Создаем новый список для сортированных книг
-        sortedBooks.addAll(books.toArray()); // Копируем книги из исходного списка в новый
-        ((MyArrayList<Book>) sortedBooks).sort(Comparator.comparing(Book::getAuthor)); // Сортируем по автору
-        return sortedBooks; // Возвращаем отсортированный список
+        MyList<Book> allBooks = getAllBooks();
+        // Проверяем, что список не null и не пустой
+        if (allBooks == null || allBooks.isEmpty()) {
+            return new MyArrayList<>();
+        }
+        allBooks.sort(Comparator.comparing(Book::getAuthor, Comparator.nullsLast(Comparator.naturalOrder())));
+        return allBooks;
     }
 
     // Список всех книг, отсортированный по названию книги
     @Override
     public MyList<Book> getBooksSortedByName() {
-        MyList<Book> sortedBooks = new MyArrayList<>(); // Создаем новый список для сортированных книг
-        sortedBooks.addAll(books.toArray()); // Копируем книги из исходного списка в новый
-        ((MyArrayList<Book>) sortedBooks).sort(Comparator.comparing(Book::getName)); // Сортируем по имени
-        return sortedBooks; // Возвращаем отсортированный список
+        MyList<Book> allBooks = getAllBooks();
+        // Проверяем, что список не null и не пустой
+        if (allBooks == null || allBooks.size() == 0) {
+            return new MyArrayList<>();
+        }
+        // Сортируем книги по имени
+        allBooks.sort(Comparator.comparing(Book::getName, Comparator.nullsLast(Comparator.naturalOrder())));
+        return allBooks;
     }
 
     @Override
-    public void addNewBook(Book newBook) {
+    public void addNewBook(Book book) {
+        books.add(book);
 
     }
 
     @Override
     public void updateBook(Book book) {
-
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getBookId() == book.getBookId()) {
+                books.set(i, book);
+                System.out.println("Book with ID " + book.getBookId() + " successfully updated.");
+                return;
+            }
+        }
+        System.out.println("Book with ID " + book.getBookId() + " not found.");
     }
 
     @Override
     public Book getBookById(int bookId) {
-
+        for (Book book : books) {
+            if (book.getBookId() == bookId) {
+                return book;
+            }
+        }
         return null;
     }
-
-
-
 }
+
+
 

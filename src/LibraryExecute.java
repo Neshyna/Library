@@ -16,7 +16,7 @@ public class LibraryExecute {
         Menu menu = new Menu(mainService,userRepo,bookRepo);
 
 
-        bookRepo.addDefaultBooks();
+        BookRepo.addDefaultBooks();
         menu.run();
 
 
