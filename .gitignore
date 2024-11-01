@@ -4,7 +4,7 @@ out/
 !**/src/test/**/out/
 
 lib/
-.ibea/
+.idea/
 *.iml
 
 ### Eclipse ###

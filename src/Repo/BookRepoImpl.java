@@ -4,14 +4,25 @@ import Model.Book;
 import Utils.MyArrayList;
 import Utils.MyList;
 import java.util.Comparator;
-
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BookRepoImpl implements BookRepo{
 
-    private final int books;
+    private final MyList<Book> books;
 
-    public BookRepoImpl(int books) {// метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.он нужен в MainServiceTest
+    private final AtomicInteger currentId = new AtomicInteger(1);
+
+    public BookRepoImpl(int i) {// метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.он нужен в MainServiceTest
         this.books = new MyArrayList<>();
+        addDefaultBooks();
+    }
+
+    public void addDefaultBooks(){
+        books.addAll(
+                new Book("Neshyna1", "Masha1", 1234, 1),
+                new Book("Neshyna2", "Masha2", 1234, 2),
+                new Book("Neshyna3", "Masha3", 1234,3)
+        );
     }
 
     @Override
@@ -93,9 +104,22 @@ public class BookRepoImpl implements BookRepo{
     }
 
     @Override
-    public Book findBookById(int bookId) {
+    public void addNewBook(Book newBook) {
+
+    }
+
+    @Override
+    public void updateBook(Book book) {
+
+    }
+
+    @Override
+    public Book getBookById(int bookId) {
+
         return null;
     }
+
+
 
 }
 

@@ -6,7 +6,7 @@ import Utils.MyList;
 
 public interface MainService {
 
-    void addBook(String name, String author, int year);
+    void addBook(String name, String author, int year, int bookId);
 
     MyList<Book> getAllBooks();
 

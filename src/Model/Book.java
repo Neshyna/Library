@@ -15,7 +15,7 @@ public class Book {
         this.author = author;
         this.name = name;
         this.year = year;
-        this.bookId = this.bookId;
+        this.bookId = bookId;
 
     }
 

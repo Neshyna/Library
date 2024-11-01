@@ -2,6 +2,7 @@ package View;
 
 import Model.User;
 import Repo.UserRepo;
+import Repo.BookRepo;
 import Service.MainService;
 
 
@@ -10,36 +11,56 @@ import java.util.Scanner;
 public class Menu {
     private final MainService service;
     private final UserRepo userRepo;
+    private final BookRepo bookRepo;
     private final Scanner scanner = new Scanner(System.in);
 
-    public Menu(MainService service, UserRepo userRepo) {
+    public Menu(MainService service, UserRepo userRepo, BookRepo bookRepo) {
         this.service = service;
         this.userRepo = userRepo;
+        this.bookRepo = bookRepo;
     }
 
     public void run() {
-        showMenu();
+        showStartPage();
     }
 
-    private void showMenu() {
+    private void showStartPage() {
         while (true) {
-            System.out.println("Welcome to menu");
-            System.out.println("1. Book menu");
-            System.out.println("2. User menu");
-            System.out.println("3. Admin menu");
+            System.out.println("Welcome");
+            System.out.println("User menu");
+            System.out.println("1. Login");
+            System.out.println("2. Register new user");
+            System.out.println("3. Logout");
             System.out.println("0. Exit");
             System.out.println("\nSelect an option");
 
-            int choice = scanner.nextInt();
+            int input = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice == 0) {
+            if (input == 0) {
                 System.out.println("Good bye");
                 System.exit(0);//end app work
             }
-            showSubMenu(choice);
-        }
+            handleUserMenuChoice(input);
 
+        }
+    }
+
+    private void showHomePage(){
+        while (true){
+            System.out.println("Menu");
+            System.out.println("1. Book menu");
+            System.out.println("2. Admin menu");
+            System.out.println("0. Back");
+
+            int input = scanner.nextInt();
+            scanner.nextLine();
+
+            if (input == 0) {
+                break;
+            }
+            showSubMenu(input);
+        }
     }
 
     private void showSubMenu(int input) {
@@ -48,9 +69,6 @@ public class Menu {
                 showBookMenu();
                 break;
             case 2:
-                showUserMenu();
-                break;
-            case 3:
                 showAdminMenu();
                 break;
             default:
@@ -58,7 +76,7 @@ public class Menu {
         }
     }
 
-    private void showUserMenu() {
+   /* private void showUserMenu() {
         while (true) {
             System.out.println("User menu");
             System.out.println("1. Login");
@@ -74,8 +92,8 @@ public class Menu {
 
             handleUserMenuChoice(input);
 
-        }
-    }
+       }*/
+
 
     private void handleUserMenuChoice(int input) {
         switch (input) {
@@ -86,7 +104,7 @@ public class Menu {
                 System.out.println("Type your email");
                 String email2 = scanner.nextLine();
 
-                System.out.println("Type your pass");
+                System.out.println("Type your password");
                 String password1 = scanner.nextLine();
 
                 boolean user1 = service.loginUser(email2, password1);
@@ -94,6 +112,8 @@ public class Menu {
                 if (user1 == true) {
                     System.out.println("User successfully logged in");
                 }
+
+                showHomePage();
 
                 waitRead();
                 break;
@@ -115,6 +135,7 @@ public class Menu {
                     System.out.println("Registration failed");
                 }
 
+                showHomePage();
                 waitRead();
 
                 break;
@@ -127,22 +148,22 @@ public class Menu {
                 break;
 
             default:
-                System.out.println("\nIncorrect input");
+                System.out.println("\nIncorrect input, please enter a number");
         }
     }
 
     private void waitRead() {
-        System.out.println("\npress enter to proceed");
+        System.out.println("\nPress enter to proceed");
         scanner.nextLine();
     }
 
     private void showBookMenu() {
         while (true) {
             System.out.println("Book menu");
-            System.out.println("1. Borrow a book");
-            System.out.println("2. Return a book");
-            System.out.println("3. All books");
-            System.out.println("4. Find a book");
+            System.out.println("1. Find a book");
+            System.out.println("2. All books");
+            System.out.println("3. Borrow a book");
+            System.out.println("4. Return a book");
             System.out.println("0. Back");
 
             System.out.println("\n Select an option");
@@ -159,6 +180,14 @@ public class Menu {
     private void handleBookMenuChoice(int input) {
         switch (input) {
             case 1:
+                showFindBookMenu();
+                waitRead();
+                break;
+            case 2:
+                showAllBooks();
+                waitRead();
+                break;
+            case 3:
                 System.out.println("Borrow a book");
                 System.out.println("Insert book id");
                 int bookId = scanner.nextInt();
@@ -166,7 +195,7 @@ public class Menu {
                 service.borrowBook(bookId);
                 waitRead();
                 break;
-            case 2:
+            case 4:
                 System.out.println("Return a book");
                 System.out.println("Insert book id");
                 bookId = scanner.nextInt();
@@ -174,23 +203,15 @@ public class Menu {
                 service.returnBook(bookId);
                 waitRead();
                 break;
-            case 3:
-                showAllBooks();
-                waitRead();
-                break;
-            case 4:
-                showFindBookMenu();
-                waitRead();
-                break;
             default:
-                System.out.println("\nIncorrect input");
+                System.out.println("\nIncorrect input, please enter a number");
         }
     }
 
     private void showFindBookMenu(){
         while (true) {
             System.out.println("Find a book ");
-            System.out.println("1. Find a book by name");
+            System.out.println("1. Find a book by title");
             System.out.println("2. Find a book by author");
             System.out.println("0. Back");
 
@@ -207,11 +228,11 @@ public class Menu {
     private void handleFindBookChoice(int input) {
         switch (input){
             case 1:
-                System.out.println("Find a book by name");
-                System.out.println("Insert book's name");
+                System.out.println("Find a book by title");
+                System.out.println("Insert book's title");
                 String name = scanner.nextLine();
 
-                service.getBookByName(name);
+                bookRepo.getByNamePart(name);
                 waitRead();
                 break;
             case 2:
@@ -219,10 +240,10 @@ public class Menu {
                 System.out.println("Insert book's author");
                 String author = scanner.nextLine();
 
-                service.getByAuthor(author);
+                bookRepo.getByAuthor(author);
                 break;
             default:
-                System.out.println("\nIncorrect input");
+                System.out.println("\nIncorrect input, please enter a number");
                 break;
 
         }
@@ -234,7 +255,7 @@ public class Menu {
             System.out.println("1. All books");
             System.out.println("2. Available books");
             System.out.println("3. Borrowed books");
-            System.out.println("4. Sort books by name");
+            System.out.println("4. Sort books by title");
             System.out.println("5. Sort books by author");
             System.out.println("0. Back");
 
@@ -251,27 +272,27 @@ public class Menu {
     private void handleShowAllBooksChoice(int input) {
         switch (input) {
             case 1:
-                service.getAllBooks();
+                bookRepo.getAllBooks();
                 waitRead();
                 break;
             case 2:
-                service.getAllFreeBooks();
+                bookRepo.getAllFreeBooks();
                 waitRead();
                 break;
             case 3:
-                service.getAllBusyBooks();
+                bookRepo.getAllBusyBooks();
                 waitRead();
                 break;
             case 4:
-                //Sort books by name
+                bookRepo.getBooksSortedByName();
                 waitRead();
                 break;
             case 5:
-                // Sort books by author
+                bookRepo.getBooksSortedByAuthor();
                 waitRead();
                 break;
             default:
-                System.out.println("\nIncorrect input");
+                System.out.println("\nIncorrect input, please enter a number");
         }
 
     }
@@ -279,12 +300,11 @@ public class Menu {
     private void showAdminMenu() {
         while (true) {
             System.out.println("Admin menu");
-            System.out.println("1. Login");
-            System.out.println("2. Add a book");
-            System.out.println("3. Find a user");//optional
-            System.out.println("4. Find a book");
-            System.out.println("5. Edit a book");
-            System.out.println("6. Logout");
+
+            System.out.println("1. Add a book");
+            System.out.println("2. Find a user");//optional
+            System.out.println("3. Find a book by id");
+            System.out.println("4. Edit a book");
             System.out.println("0. Back");
 
             System.out.println("\n Select an option");
@@ -301,26 +321,9 @@ public class Menu {
     private void handleAdminMenuChoice(int input) {
         switch (input) {
             case 1:
-                //admin login
-
-                System.out.println("User authorization");
-                System.out.println("Type your email");
-                String email2 = scanner.nextLine();
-
-                System.out.println("Type your pass");
-                String password1 = scanner.nextLine();
-
-                boolean user1 = service.loginUser(email2, password1);
-
-                if (user1 == true) {
-                    System.out.println("User successfully logged in");
-                }
-                waitRead();
-                break;
-            case 2:
                 //add a book
                 System.out.println("Add a book");
-                System.out.println("Insert book's name");
+                System.out.println("Insert book's title");
                 String name = scanner.nextLine();
 
                 System.out.println("Insert book's author");
@@ -329,10 +332,13 @@ public class Menu {
                 System.out.println("Insert book's year");
                 int year = scanner.nextInt();
 
-                service.addBook(name,author,year);
+                System.out.println("Insert book's id");
+                int bookId = scanner.nextInt();
+
+                service.addBook(name,author,year,bookId);
                 waitRead();
                 break;
-            case 3:
+            case 2:
                 // find user
                 System.out.println("Find user");
                 System.out.println("Insert user id");
@@ -341,53 +347,38 @@ public class Menu {
                 userRepo.findUserById(userId);
                 waitRead();
                 break;
-            case 4:
-               //find book
-                //todo
-                //create method to find a book
-                showBookInfoAdmin();
+            case 3:
+                System.out.println("Find a book by id");
+                System.out.println("Insert book id");
+                bookId = scanner.nextInt();
+                bookRepo.getBookById(bookId);
+
                 waitRead();
                 break;
-            case 5:
+            case 4:
                 System.out.println("Edit a book");
                 System.out.println("Insert book id");
-                int bookId = scanner.nextInt();
 
-                service.editBook(bookId);
+                bookId = scanner.nextInt();
+                bookRepo.getBookById(bookId);
+
+                System.out.println("Insert new title");
+                String newName = scanner.nextLine();
+
+                System.out.println("Insert new author");
+                String newAuthor = scanner.nextLine();
+
+                System.out.println("Insert book's publish year");
+                int newYear = scanner.nextInt();
+
+                service.editBook(bookId,newName,newAuthor,newYear);
                 waitRead();
                 break;
-            case 6:
-                //logout
-                service.logout();
-                System.out.println("You are logged out");
-                waitRead();
-                break;
+
             default:
-                System.out.println("\nIncorrect input");
+                System.out.println("\nIncorrect input, please enter a number");
         }
 
-    }
-//Todo
-    private void showBookInfoAdmin() {
-        while (true) {
-            System.out.println("Admin book info");
-            System.out.println("1. Дата, когда была книга взята на прокат");
-            System.out.println("2. Получить информацию сколько дней книга находится у пользователя");
-            System.out.println("3. Взятие книги из библиотеки с фиксацией даты");
-            System.out.println("0. Back");
-
-            System.out.println("\n Select an option");
-            int input = scanner.nextInt();
-            scanner.nextLine();
-
-            if (input == 0) break;
-
-            handleBookInfoAdminChoice(input);
-
-        }
-    }
-//todo
-    private void handleBookInfoAdminChoice(int input) {
     }
 
 }

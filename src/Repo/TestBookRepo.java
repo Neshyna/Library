@@ -18,18 +18,18 @@ import static org.junit.jupiter.api.Assertions.*;
         @BeforeEach
         void setUp() {//инициализирует начальное состояние перед каждым тестом
             books = new MyArrayList<>();
-            bookRepo = new BookRepoImpl(books);
+            bookRepo = new BookRepoImpl(10);
 
             // Adding sample books to initialize repository
-            bookRepo.addBook("Author One", "Book One", 2020);
-            bookRepo.addBook("Author Two", "Book Two", 2019);
-            bookRepo.addBook("Author Three", "Book Three", 2018);
+            bookRepo.addBook("Author One", "Book One", 2020, 1);
+            bookRepo.addBook("Author Two", "Book Two", 2019,2);
+            bookRepo.addBook("Author Three", "Book Three", 2018,3);
         }
 
         @Test
         void testAddBook() {//проверяет, что книга добавляется корректно.
             int initialSize = books.size();
-            bookRepo.addBook("Author Four", "Book Four", 2021);
+            bookRepo.addBook("Author Four", "Book Four", 2021,4);
 
             assertEquals(initialSize + 1, books.size());
             assertEquals("Author Four", books.get(books.size() - 1).getAuthor());

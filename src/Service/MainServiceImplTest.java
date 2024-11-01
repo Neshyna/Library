@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 
@@ -48,9 +47,9 @@ class MainServiceImplTest {
     @Test
     void testAddBookAsAdmin() {
         mainService.loginUser("admin@example.com", "adminPassword");
-        mainService.addBook("Effective Java", "Joshua Bloch", 2008);
+        mainService.addBook("Effective Java", "Joshua Bloch", 2008, 82);
 
-        Book addedBook = bookRepo.findBookById(1); // Предполагаем, что ID - 1
+        Book addedBook = bookRepo.getBookById(1); // Предполагаем, что ID - 1
         assertNotNull(addedBook);
         assertEquals("Effective Java", addedBook.getName());
         assertEquals("Joshua Bloch", addedBook.getAuthor());
@@ -60,17 +59,17 @@ class MainServiceImplTest {
     @Test
     void testAddBookAsNonAdmin() {
         mainService.loginUser("user@example.com", "userPassword");
-        mainService.addBook("Effective Java", "Joshua Bloch", 2008);
+        mainService.addBook("Effective Java", "Joshua Bloch", 2008,33);
 
-        assertNull(bookRepo.findBookById(1)); // Проверяем, что книга не добавлена
+        assertNull(bookRepo.getBookById(1)); // Проверяем, что книга не добавлена
     }
 
     @Test
     void testBorrowBookAsLoggedInUser() {
         mainService.loginUser("user@example.com", "userPassword");
 
-        Book book = new Book("Clean Code", "Robert C. Martin", 2008, bookId);
-        bookRepo.addBook(book);
+        Book book = new Book("Clean Code", "Robert C. Martin", 2008, 86);
+        bookRepo.addNewBook(book);
 
         boolean result = mainService.borrowBook(1);
 
@@ -89,9 +88,9 @@ class MainServiceImplTest {
     void testReturnBook() {
         mainService.loginUser("user@example.com", "userPassword");
 
-        Book book = new Book("Design Patterns", "Erich Gamma", 1994, bookId);
+        Book book = new Book("Design Patterns", "Erich Gamma", 1994, 7);
         book.setBusy(true);
-        bookRepo.addBook(book);
+        bookRepo.addNewBook(book);
 
         mainService.returnBook(1);
 
@@ -102,12 +101,12 @@ class MainServiceImplTest {
     void testEditBookAsAdmin() {
         mainService.loginUser("admin@example.com", "adminPassword");
 
-        Book book = new Book("Old Title", "Old Author", 1999, bookId);
-        bookRepo.addBook(book);
+        Book book = new Book("Old Title", "Old Author", 1999, 8);
+        bookRepo.addNewBook(book);
 
         mainService.editBook(1, "New Title", "New Author", 2020);
 
-        Book updatedBook = bookRepo.findBookById(1);
+        Book updatedBook = bookRepo.getBookById(1);
         assertEquals("New Title", updatedBook.getName());
         assertEquals("New Author", updatedBook.getAuthor());
         assertEquals(2020, updatedBook.getYear());
@@ -119,7 +118,7 @@ class MainServiceImplTest {
 
         mainService.editBook(1, "New Title", "New Author", 2020);
 
-        Book book = bookRepo.findBookById(1);
+        Book book = bookRepo.getBookById(1);
         assertNotEquals("New Title", book.getName());
     }
 

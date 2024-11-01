@@ -9,12 +9,14 @@ import View.Menu;
 public class LibraryExecute {
     public static void main(String[] args) {
 
-        BookRepo bookRepo = new BookRepoImpl();
-        UserRepo userRepo = new UserRepoImpl();
+        BookRepo bookRepo = new BookRepoImpl(10);
+        UserRepo userRepo = new UserRepoImpl(100);
         MainService mainService = new MainServiceImpl(bookRepo,userRepo);
 
-        Menu menu = new Menu(mainService,userRepo);
+        Menu menu = new Menu(mainService,userRepo,bookRepo);
 
+
+        bookRepo.addDefaultBooks();
         menu.run();
 
 

@@ -8,7 +8,7 @@ public class UserRepoImpl implements UserRepo {
 
     private final MyList<User> users;
 
-    public UserRepoImpl() {
+    public UserRepoImpl(int i) {
             this.users = new MyArrayList<>();
     }
 

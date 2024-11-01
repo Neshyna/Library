@@ -21,13 +21,13 @@ public class MainServiceImpl implements MainService{
     }
 
     @Override
-    public void addBook(String name, String author, int year) {
+    public void addBook(String name, String author, int year, int bookId) {
         if (activUser == null || activUser.getRole() != Role.ADMIN) {
             System.out.println("Adding a new book is only available to administrators");
             return;
         }
         Book newBook = new Book(name, author, year, bookId);
-        bookRepo.addBook(newBook);
+        bookRepo.addNewBook(newBook);
         System.out.println("Book added successfully");
     }
 
@@ -67,7 +67,7 @@ public class MainServiceImpl implements MainService{
             return false;
         }
 
-        Book book = bookRepo.findBookById(bookId);
+        Book book = bookRepo.getBookById(bookId);
         if (book == null) {
             System.out.println("Book with ID " + bookId + " not found.");
             return false;
@@ -96,7 +96,7 @@ public class MainServiceImpl implements MainService{
 
     @Override
     public void editBook(int bookId, String newName, String newAuthor, int newYear) {
-        Book book = bookRepo.findBookById(bookId);
+        Book book = bookRepo.getBookById(bookId);
         if (activUser == null) {
             System.out.println("User not logged in.");
             return;
@@ -105,7 +105,7 @@ public class MainServiceImpl implements MainService{
             System.out.println("Editing a book is only available to administrators.");
             return;
         }
-        Book book1 = bookRepo.findBookById(bookId);
+        Book book1 = bookRepo.getBookById(bookId);
         if (book == null) {
             System.out.println("Book with ID " + bookId + " not found.");
             return;
