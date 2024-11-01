@@ -6,8 +6,6 @@ public interface UserRepo {
 
      User addUser(String email, String password);
 
-     boolean isMailExits(String email);
-
     boolean isMailExist(String email);
 
     User getUserEmail(String email);
