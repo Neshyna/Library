@@ -4,6 +4,8 @@ import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
 
+import java.util.Random;
+
 public class UserRepoImpl implements UserRepo {
 
     private final MyList<User> users;
@@ -56,6 +58,16 @@ public class UserRepoImpl implements UserRepo {
             }
         }
         return null; // Если пользователь не найден, возвращаем null
+    }
 
+    // Метод для генерации случайного пользователя
+    /* Метод создает случайные значения для email и password.
+    Это делается с помощью Random и добавляет случайное число к базовым строкам, например "user1234@example.com" */
+    public User generateRandomUser() {
+        String randomEmail = "user" + new Random().nextInt(10000) + "@example.com";
+        String randomPassword = "pass" + new Random().nextInt(10000);
+
+        // Создаем пользователя и добавляем его в репозиторий
+        return addUser(randomEmail, randomPassword);
     }
 }
