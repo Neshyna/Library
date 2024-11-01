@@ -58,7 +58,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public MyList<Book> getByAuthor(String author) {
-        MyList<Book> books = bookRepo.getByAuthor(author); // Используйте bookRepo
+        MyList<Book> books = bookRepo.getByAuthor(author);
         if (books == null || books.isEmpty()) {
             System.out.println("No books found by author: " + author);
             return new MyArrayList<>(); // Возвращаем пустой список
@@ -103,7 +103,7 @@ public class MainServiceImpl implements MainService {
             return false;
         }
 
-        Book book = bookRepo.getBookById(bookId); // Используйте bookRepo
+        Book book = bookRepo.getBookById(bookId);
         if (book == null) {
             System.out.println("Book with ID " + bookId + " not found.");
             return false;
@@ -119,7 +119,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public void returnBook(int bookId) {
-        Book book = bookRepo.getBookById(bookId); // Используйте bookRepo
+        Book book = bookRepo.getBookById(bookId);
         if (book != null && book.isBusy()) {
             book.setBusy(false);
             bookRepo.updateBook(book);
@@ -131,7 +131,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public void editBook(int bookId, String newName, String newAuthor, int newYear) {
-        Book book = bookRepo.getBookById(bookId); // Используйте bookRepo
+        Book book = bookRepo.getBookById(bookId);
         if (getActiveUser() == null) {
             System.out.println("User not logged in.");
             return;
@@ -161,16 +161,16 @@ public class MainServiceImpl implements MainService {
             System.out.println("Please check password");
             return null;
         }
-        if (userRepo.isMailExist(email)) { // Используйте userRepo
+        if (userRepo.isMailExist(email)) {
             System.out.println("Email already exists");
             return null;
         }
-        return userRepo.addUser(email, password); // Используйте userRepo
+        return userRepo.addUser(email, password);
     }
 
     @Override
     public boolean loginUser(String email, String password) {
-        User user = userRepo.getUserEmail(email); // Используйте userRepo
+        User user = userRepo.getUserEmail(email);
         if (user == null || !user.getPassword().equals(password)) {
             System.out.println("Invalid email or password");
             return false;
@@ -187,6 +187,6 @@ public class MainServiceImpl implements MainService {
     }
 
     public User getActiveUser() {
-        return activUser; // Исправлено
+        return activUser;
     }
 }
