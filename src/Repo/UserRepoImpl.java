@@ -6,9 +6,11 @@ import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
 
+import static Utils.PersonValidator.isPasswordValid;
+
 public class UserRepoImpl implements UserRepo {
 
-    private final MyList<User> users;
+    private final MyList<User> users= new MyArrayList<>();
 
     public UserRepoImpl(int i) {
             this.users = new MyArrayList<>();
@@ -29,15 +31,14 @@ public class UserRepoImpl implements UserRepo {
         }
     }
 
- @Override
-    public User addUser(String email, String password) {
+    @Override
+ public User addUser(String email, String password) {
 
         // Проверяем, существует ли уже пользователь с таким email
         if (isMailExist(email)) {
-            System.out.println("Email already exists.");
-            return null; // Если email существует, возвращаем null
+            throw new IllegalArgumentException("Email already exists.");
         }
-
+   
         User newUser = new User(email,password); // Создаем нового пользователя
         users.add(newUser); // Добавляем пользователя в список
         return newUser; // Возвращаем нового пользователя
@@ -63,15 +64,14 @@ public class UserRepoImpl implements UserRepo {
         return null; // Если пользователь не найден, возвращаем null
     }
 
+
     @Override
     public User findUserById(int userId) {
-
         for (User user : users) {
             if (user.getId() == userId) {
                 return user; // Возвращаем пользователя с указанным ID
             }
         }
         return null; // Если пользователь не найден, возвращаем null
-
     }
 }

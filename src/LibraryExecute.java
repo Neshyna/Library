@@ -13,13 +13,8 @@ public class LibraryExecute {
         BookRepo bookRepo = new BookRepoImpl(10);
         UserRepo userRepo = new UserRepoImpl(100);
         MainService mainService = new MainServiceImpl(bookRepo,userRepo);
-
         MenuEdited menu = new MenuEdited(mainService);
 
         menu.run();
-
-
     }
-
-
 }
