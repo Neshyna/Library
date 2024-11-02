@@ -166,9 +166,7 @@ public class MainServiceImpl implements MainService{
         Book book = bookRepo.getBookById(bookId);
         if (book == null) {
             System.out.println("Book with ID " + bookId + " not found.");
-            return false;
         }
-
         return true;
     }
 

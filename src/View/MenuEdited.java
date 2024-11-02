@@ -256,7 +256,6 @@ public class MenuEdited {
                 System.out.println("Insert book id");
                 bookId = scanner.nextInt();
                 service.getBookById(bookId);
-
                 waitRead();
                 break;
             case 3:

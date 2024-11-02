@@ -1,6 +1,7 @@
 package Repo;
 
 import Model.Book;
+import Model.Role;
 import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
@@ -24,7 +25,7 @@ public class UserRepoImpl implements UserRepo {
 
     public void giveAdminPermissions(String email, String password){
         for (User user : users){
-            user.setAdmin(true);
+            user.setRole(Role.ADMIN);
         }
     }
 
