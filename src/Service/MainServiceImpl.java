@@ -186,7 +186,42 @@ public class MainServiceImpl implements MainService {
         System.out.println("User logged out successfully");
     }
 
-    public User getActiveUser() {
+    @Override
+    public Book getBookById(int bookId) {
+        Book bookById = bookRepo.getBookById(bookId);
+        if (bookById == null) {
+            System.out.println("Book with ID " + bookId + " not found.");
+        }
+        return bookById;
+    }
+
+    @Override
+    public MyList<Book> getBooksSortedByName() {
+        MyList<Book> books = bookRepo.getBooksSortedByName(name);
+        if (books == null || books.isEmpty()) {
+            System.out.println("No books found by name: " + name);
+            return new MyArrayList<>(); // Возвращаем пустой список
+        } else {
+            System.out.println("Books retrieved successfully by name: " + name);
+            return books;
+        }
+    }
+
+    @Override
+    public MyList<Book> getBooksSortedByAuthor() {
+         MyList<Book> books = bookRepo.getBooksSortedByAuthor(author);
+        if (books == null || books.isEmpty()) {
+            System.out.println("No books found by author: " + author);
+            return new MyArrayList<>(); // Возвращаем пустой список
+        } else {
+            System.out.println("Books retrieved successfully by author: " + author);
+            return books;
+        }
+    }
+
+    public User getActiveUser(){
         return activUser;
     }
 }
+
+

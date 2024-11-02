@@ -1,10 +1,11 @@
 package View;
 
+import Model.Book;
 import Model.User;
 import Repo.UserRepo;
 import Repo.BookRepo;
 import Service.MainService;
-
+import Utils.MyList;
 
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class Menu {
     private final BookRepo bookRepo;
     private final Scanner scanner = new Scanner(System.in);
 
-    public Menu(MainService service, UserRepo userRepo, BookRepo bookRepo) {
+    public Menu(MainService service,BookRepo bookRepo, UserRepo userRepo) {
         this.service = service;
         this.userRepo = userRepo;
         this.bookRepo = bookRepo;
@@ -27,7 +28,7 @@ public class Menu {
     private void showStartPage() {
         while (true) {
             System.out.println("Welcome");
-            System.out.println("User menu");
+            //System.out.println("User menu");
             System.out.println("1. Login");
             System.out.println("2. Register new user");
             System.out.println("3. Logout");
@@ -111,9 +112,8 @@ public class Menu {
 
                 if (user1 == true) {
                     System.out.println("User successfully logged in");
+                    showHomePage();
                 }
-
-                showHomePage();
 
                 waitRead();
                 break;
@@ -131,11 +131,11 @@ public class Menu {
 
                 if (user != null) {
                     System.out.println("Registered successfully");
+                    showHomePage();
                 } else {
                     System.out.println("Registration failed");
                 }
 
-                showHomePage();
                 waitRead();
 
                 break;
@@ -269,13 +269,23 @@ public class Menu {
         }
     }
 
+    private void printBooks(MyList<Book> books){
+        for (Book book : books){
+            System.out.println(book.getBookId() + ", " + book.getName() +
+                    ", "  + book.getAuthor());
+        }
+    }
+
     private void handleShowAllBooksChoice(int input) {
         switch (input) {
             case 1:
-                bookRepo.getAllBooks();
+                MyList<Book> books = bookRepo.getAllBooks();
+                printBooks(books);
                 waitRead();
                 break;
             case 2:
+                MyList<Book> books1 = bookRepo.getAllFreeBooks();
+                printBooks(books1);
                 bookRepo.getAllFreeBooks();
                 waitRead();
                 break;

@@ -5,6 +5,7 @@ import Repo.UserRepoImpl;
 import Service.MainService;
 import Service.MainServiceImpl;
 import View.Menu;
+import View.MenuEdited;
 
 public class LibraryExecute {
     public static void main(String[] args) {
@@ -12,15 +13,8 @@ public class LibraryExecute {
         BookRepo bookRepo = new BookRepoImpl(10);
         UserRepo userRepo = new UserRepoImpl(100);
         MainService mainService = new MainServiceImpl(bookRepo,userRepo);
+        MenuEdited menu = new MenuEdited(mainService);
 
-        Menu menu = new Menu(mainService,userRepo,bookRepo);
-
-
-        BookRepo.addDefaultBooks();
         menu.run();
-
-
     }
-
-
 }

@@ -3,6 +3,8 @@ package Repo;
 import Model.Book;
 import Utils.MyArrayList;
 import Utils.MyList;
+
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -131,6 +133,7 @@ public class BookRepoImpl implements BookRepo {
     }
 
     @Override
+
     public void addNewBook(Book book) {
         books.add(book);
     }
@@ -149,10 +152,9 @@ public class BookRepoImpl implements BookRepo {
 
     @Override
     public Book getBookById(int bookId) {
-        for (Book book : books) {
-            if (book.getBookId() == bookId) {
-                return book;
-            }
+        for(Book book : books){
+            if (bookId == book.getBookId());
+            return book;
         }
         return null;
     }

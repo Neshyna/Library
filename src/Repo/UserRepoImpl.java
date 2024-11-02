@@ -1,5 +1,7 @@
 package Repo;
 
+import Model.Book;
+import Model.Role;
 import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
@@ -11,9 +13,23 @@ public class UserRepoImpl implements UserRepo {
     private final MyList<User> users= new MyArrayList<>();
 
     public UserRepoImpl(int i) {
-
+            this.users = new MyArrayList<>();
+            addDefaultUsers();
     }
 
+    public void addDefaultUsers(){
+        users.addAll (
+                new User("Masha123@gmail.com", "Masha123@gmail.com"),
+                new User("Neshyna123@gmail.com", "Neshyna123@gmail.com")
+        );
+        giveAdminPermissions("Neshyna123@gmail.com", "Neshyna123@gmail.com");
+    }
+
+    public void giveAdminPermissions(String email, String password){
+        for (User user : users){
+            user.setRole(Role.ADMIN);
+        }
+    }
 
     @Override
  public User addUser(String email, String password) {
@@ -22,11 +38,11 @@ public class UserRepoImpl implements UserRepo {
         if (isMailExist(email)) {
             throw new IllegalArgumentException("Email already exists.");
         }
-
-     User newUser = new User(new MyArrayList<>(), password, email); // Создаем нового пользователя
-     users.add(newUser); // Добавляем пользователя в список
-     return newUser; // Возвращаем нового пользователя
- }
+   
+        User newUser = new User(email,password); // Создаем нового пользователя
+        users.add(newUser); // Добавляем пользователя в список
+        return newUser; // Возвращаем нового пользователя
+    }
 
     @Override
     public boolean isMailExist(String email) {
@@ -51,13 +67,11 @@ public class UserRepoImpl implements UserRepo {
 
     @Override
     public User findUserById(int userId) {
-
         for (User user : users) {
             if (user.getId() == userId) {
                 return user; // Возвращаем пользователя с указанным ID
             }
         }
         return null; // Если пользователь не найден, возвращаем null
-
     }
 }
