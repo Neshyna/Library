@@ -159,9 +159,33 @@ public class MainServiceImpl implements MainService{
         activUser = null;
         System.out.println("User logged out successfully");
     }
+
+    @Override
+    public boolean getBookById(int bookId) {
+
+        Book book = bookRepo.getBookById(bookId);
+        if (book == null) {
+            System.out.println("Book with ID " + bookId + " not found.");
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public MyList<Book> getBooksSortedByName() {
+        return null;
+    }
+
+    @Override
+    public MyList<Book> getBooksSortedByAuthor() {
+        return null;
+    }
+
     public User getActiveUser(){
         return activUser;
     }
+
 }
 
 

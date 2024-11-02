@@ -1,5 +1,6 @@
 package Model;
 
+import Utils.MyArrayList;
 import Utils.MyList;
 
 public class User {
@@ -10,17 +11,19 @@ public class User {
     private String password;
     private Role role;
     boolean isBlocked;
+    boolean isAdmin;
 
     private final MyList<Book> userBooks;
 
-    public User(MyList<Book> userBooks, String password, String email) {
+    public User( String email, String password) {
 
-        this.userBooks = userBooks;
+        this.userBooks = new MyArrayList<>();
         this.role = Role.USER;
         this.password = password;
         this.email = email;
         this.id = ++userIdCounter; // Генерируем уникальный ID
         this.isBlocked = isBlocked;
+        this.isAdmin = isAdmin;
     }
 
     public boolean isBlocked() {
@@ -29,6 +32,14 @@ public class User {
 
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public String getEmail() {
@@ -63,18 +74,18 @@ public class User {
         return userBooks;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                "email='" + email + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", isBlocked=" + isBlocked +
+                ", isAdmin=" + isAdmin +
                 ", userBooks=" + userBooks +
                 '}';
     }
-
 
 
 }

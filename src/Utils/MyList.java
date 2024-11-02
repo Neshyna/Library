@@ -99,7 +99,6 @@ public interface MyList<T> extends Iterable<T> {
 
 
     void set (int index, T value);
-
-    void sort(Comparator<T> comparing);
 }
+
 

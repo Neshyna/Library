@@ -30,4 +30,10 @@ public interface MainService {
 
     void logout();
 
+    boolean getBookById(int bookId);
+
+
+    MyList<Book> getBooksSortedByName();
+
+    MyList<Book> getBooksSortedByAuthor();
 }

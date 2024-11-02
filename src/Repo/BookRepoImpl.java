@@ -107,19 +107,22 @@ public class BookRepoImpl implements BookRepo{
 
     @Override
     public void addNewBook(Book newBook) {
-
     }
 
     @Override
     public void updateBook(Book book) {
-
     }
 
     @Override
     public Book getBookById(int bookId) {
-
+        for(Book book : books){
+            if (bookId == book.getBookId());
+            return book;
+        }
         return null;
     }
+
+
 
 
 

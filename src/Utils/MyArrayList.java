@@ -175,14 +175,6 @@ import java.util.Iterator;
 
         }
 
-
-        //Todo edit mathod
-        @Override
-        public void sort(Comparator<T> comparing) {
-            Arrays.sort(array, comparing);
-        }
-
-
         // Является ли коллекция пустой
         @Override
         public boolean isEmpty() {
@@ -219,43 +211,17 @@ import java.util.Iterator;
         @SuppressWarnings("unchecked")
         @Override
         public T[] toArray() {
-        /*
-        1. Создать новый массив размерностью cursor
-        2. Пройтись по нашему Внутреннему массиву и скопировать все элементы в новый массив
-        3. Вернуть ссылку на новый массив
-         */
-
-
-            // Взять какой-то объект из моего массива и узнать на стадии выполнение программы тип этого объекта.
-            // И потом могу создать массив этого типа данных
-
-            if (cursor == 0) return null;
-            // if (cursor == 0) return (T[]) new Object[0]; // ошибка в RunTime
-
-            Class<T> clazz = (Class<T>) array[0].getClass();
-//        System.out.println("clazz = " + clazz);
-
-            // Создаю массив того же типа, как и 0-й элемент
-            T[] result = (T[]) Array.newInstance(clazz, cursor);
-
-            for (int i = 0; i < result.length; i++) {
-                result[i] = array[i];
-            }
-
-            return result;
-
-//          Этот код вызывает ошибку
-//        T[] result = (T[]) new Object[cursor];
-//        for (int i = 0; i < result.length; i++) {
-//            result[i] = array[i];
-//        }
-
+            return null;
         }
 
         @Override
         public Iterator<T> iterator() {
             return new MyIterator();
         }
+
+        public void sort(Comparator<T> comparing) {
+        }
+
         private class MyIterator implements Iterator<T>{
 
             int currentIndex = 0;

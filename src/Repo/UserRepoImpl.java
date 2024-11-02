@@ -1,5 +1,6 @@
 package Repo;
 
+import Model.Book;
 import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
@@ -10,6 +11,21 @@ public class UserRepoImpl implements UserRepo {
 
     public UserRepoImpl(int i) {
             this.users = new MyArrayList<>();
+            addDefaultUsers();
+    }
+
+    public void addDefaultUsers(){
+        users.addAll (
+                new User("Masha123@gmail.com", "Masha123@gmail.com"),
+                new User("Neshyna123@gmail.com", "Neshyna123@gmail.com")
+        );
+        giveAdminPermissions("Neshyna123@gmail.com", "Neshyna123@gmail.com");
+    }
+
+    public void giveAdminPermissions(String email, String password){
+        for (User user : users){
+            user.setAdmin(true);
+        }
     }
 
  @Override
@@ -21,7 +37,7 @@ public class UserRepoImpl implements UserRepo {
             return null; // Если email существует, возвращаем null
         }
 
-        User newUser = new User(new MyArrayList<>(), password, email); // Создаем нового пользователя
+        User newUser = new User(email,password); // Создаем нового пользователя
         users.add(newUser); // Добавляем пользователя в список
         return newUser; // Возвращаем нового пользователя
     }
