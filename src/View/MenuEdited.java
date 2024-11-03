@@ -118,7 +118,11 @@ public class MenuEdited {
                 showBookMenu();
                 break;
             case 2:
+                if (service.isUserAdmin()){
                 showAdminMenu();
+                }else{
+                    System.out.println("Admin menu is available only for admin");
+                }
                 break;
             default:
                 System.out.println("Select an option");
