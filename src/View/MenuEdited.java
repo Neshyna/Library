@@ -31,10 +31,16 @@ public class MenuEdited {
     }
 
     private void printBooks(MyList<Book> books) {
+        StringBuilder result = new StringBuilder(String.format("\u001B[4m%-5s %-25s %-37s %-5s\u001B[0m\n",
+                "ID:", "Author:", "Title:", "Year:"));
+
+        // Добавляем строки с данными книг
         for (Book book : books) {
-            System.out.println("Id " + book.getBookId() + ", " + "Title: " + book.getName() +
-                    ", " + "Author: " + book.getAuthor() + ", " + "Published in " + book.getYear());
+            result.append(String.format("%-5s %-25s %-37s %-5s\n",
+                    book.getBookId(), book.getAuthor(), book.getName(), book.getYear()));
         }
+        // Теперь выводим всю таблицу на консоль
+        System.out.println(result.toString());
     }
 
     private void showLoginPage() {
