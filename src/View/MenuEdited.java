@@ -80,8 +80,8 @@ public class MenuEdited {
                 User user = service.registerUser(email, password);
 
                 if (user != null) {
-                    System.out.println("Registered successfully");
-                    showHomePage();
+                    System.out.println("Registered successfully! Please Login!");
+                    showLoginPage();
                 } else {
                     System.out.println("Registration failed");
                     showLoginPage();
