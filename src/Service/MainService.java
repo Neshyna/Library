@@ -5,32 +5,12 @@ import Model.User;
 import Utils.MyList;
 
 public interface MainService {
-
-    void addBook(String name, String author, int year);
-
-    MyList<Book> getAllBooks();
-
-    MyList<Book> getBookByName(String name);
-
-    MyList<Book> getByAuthor(String author);
-
-    MyList<Book> getAllBusyBooks();
-
-    MyList<Book> getAllFreeBooks();
-
-    boolean borrowBook(int bookId);
-
-    public void returnBook(int bookId);
-
-    public void editBook(int bookId);
-
-
-    void editBook(int bookId, String newName, String newAuthor, int newYear);
-
-    User registerUser(String email, String password);
-
     boolean loginUser(String email, String password);
-
-    void logout();
-
+    User registerUser(String email, String password);
+    MyList<Book> getAllBooks();
+    void addBook(String name, String author, int year, int bookId);
+    void borrowBook(int bookId);
+    void returnBook(int bookId);
+    MyList<User> getAllUsers();
 }
+

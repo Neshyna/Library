@@ -1,83 +1,64 @@
 package Model;
 
-import Utils.MyList;
+import Utils.MyArrayList;
+import Utils.MyList; // Убедитесь, что ваш класс MyList поддерживает необходимые методы
 
 public class User {
-
-    private static int userIdCounter = 0; // Статический счетчик для генерации уникальных ID
-    private final int id; // Уникальный идентификатор
+    private static int userCount = 0; // Счетчик для уникальных ID пользователей
+    private int id; // Уникальный ID пользователя
     private String email;
     private String password;
-    private Role role;
-    boolean isBlocked;
+    private Role role; // Роль пользователя
+    private MyList<Book> userBooks; // Список книг, взятых пользователем
 
-    private final MyList<Book> userBooks;
-
-    public User(MyList<Book> userBooks, String password, String email) {
-
-        this.userBooks = userBooks;
-        this.role = Role.USER;
-        this.password = password;
+    public User(String email, String password) {
         this.email = email;
-
-        this.id = ++userIdCounter; // Генерируем уникальный ID
-
-        this.isBlocked = isBlocked;
+        this.password = password;
+        this.id = ++userCount; // Присваиваем уникальный ID при создании пользователя
+        this.role = Role.USER; // Устанавливаем роль по умолчанию
+        this.userBooks = new MyArrayList<>(); // Инициализируем список книг
     }
 
-    public boolean isBlocked() {
-        return isBlocked;
+    // Метод для получения ID пользователя
+    public int getId() {
+        return id;
     }
 
-    public void setBlocked(boolean blocked) {
-        isBlocked = blocked;
-
-    }
-
+    // Метод для получения email
     public String getEmail() {
         return email;
     }
 
-    public int getId() {
-        return id; // Метод для получения ID
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    // Метод для получения пароля (по идее, лучше избегать предоставления этого метода)
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
+    // Метод для установки роли пользователя
     public void setRole(Role role) {
         this.role = role;
     }
 
+    // Метод для получения роли пользователя
+    public Role getRole() {
+        return role;
+    }
+
+    // Метод для получения списка книг пользователя
     public MyList<Book> getUserBooks() {
         return userBooks;
     }
 
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", userBooks=" + userBooks +
-                '}';
+    // Метод для добавления книги в список пользователя
+    public void addBook(Book book) {
+        userBooks.add(book);
     }
 
-
-
+    // Метод для удаления книги из списка пользователя
+    public void removeBook(Book book) {
+        userBooks.remove(book);
+    }
 }
+
+
+

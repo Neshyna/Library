@@ -4,70 +4,43 @@ import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
 
-import java.util.Random;
-
 public class UserRepoImpl implements UserRepo {
+    private MyList<User> users;
 
-    private final MyList<User> users;
-
-    public UserRepoImpl(int initialCapacity) {
-            this.users = new MyArrayList<>();
-
+    public UserRepoImpl() {
+        this.users = new MyArrayList<>();
     }
- @Override
+
+    @Override
     public User addUser(String email, String password) {
+        User user = new User(email, password);
+        users.add(user);
+        return user;
+    }
 
-        // Проверяем, существует ли уже пользователь с таким email
-        if (isMailExist(email)) {
-            System.out.println("Email already exists.");
-            return null; // Если email существует, возвращаем null
+    @Override
+    public User getUserByEmail(String email) {
+        for (User user : users) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                return user; // Возвращаем первого найденного пользователя
+            }
         }
+        return null; // Если пользователь не найден
+    }
 
-        User newUser = new User(new MyArrayList<>(), password, email); // Создаем нового пользователя
-        users.add(newUser); // Добавляем пользователя в список
-        return newUser; // Возвращаем нового пользователя
-
+    @Override
+    public MyList<User> getAllUsers() {
+        return users;
     }
 
     @Override
     public boolean isMailExist(String email) {
         for (User user : users) {
-            if (user.getEmail().equals(email)) {
-                return true; // Если email найден, возвращаем true
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                return true; // Почта существует
             }
         }
-        return false; // Если email не найден, возвращаем false
-    }
-
-    @Override
-    public User getUserEmail(String email) {
-        for (User user : users) {
-            if (user.getEmail().equals(email)) {
-                return user; // Возвращаем пользователя с указанным email
-            }
-        }
-        return null; // Если пользователь не найден, возвращаем null
-    }
-
-    @Override
-    public User findUserById(int userId) {
-
-        for (User user : users) {
-            if (user.getId() == userId) {
-                return user; // Возвращаем пользователя с указанным ID
-            }
-        }
-        return null; // Если пользователь не найден, возвращаем null
-    }
-
-    // Метод для генерации случайного пользователя
-    /* Метод создает случайные значения для email и password.
-    Это делается с помощью Random и добавляет случайное число к базовым строкам, например "user1234@example.com" */
-    public User generateRandomUser() {
-        String randomEmail = "user" + new Random().nextInt(10000) + "@example.com";
-        String randomPassword = "pass" + new Random().nextInt(10000);
-
-        // Создаем пользователя и добавляем его в репозиторий
-        return addUser(randomEmail, randomPassword);
+        return false; // Почта не существует
     }
 }
+
