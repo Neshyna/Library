@@ -241,6 +241,7 @@ public class MenuEdited {
             case 1:
                 //add a book
                 System.out.println("Add a book");
+
                 System.out.println("Insert book's title");
                 String name = scanner.nextLine();
 
@@ -269,11 +270,12 @@ public class MenuEdited {
 
                 System.out.println("Insert book id");
                 bookId = scanner.nextInt();
+                scanner.nextLine();
+
                 service.getBookById(bookId);
 
                 System.out.println("Insert new title");
                 String newName = scanner.nextLine();
-                scanner.nextLine();
 
                 System.out.println("Insert new author");
                 String newAuthor = scanner.nextLine();
