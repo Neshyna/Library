@@ -9,6 +9,7 @@ public class Book {
     private int year;
     private boolean isBusy;
     private int bookId;
+    private String userId; // Идентификатор владельца (пользователя)
 
     public Book(String author, String name, int year, int bookId) {
         this.author = author;
@@ -26,6 +27,7 @@ public class Book {
     }
 
     @Override
+
     public int hashCode() {
         return Objects.hash(author, name, year, isBusy, bookId);
     }
@@ -69,6 +71,10 @@ public class Book {
     public void setBusy(boolean busy) {
         isBusy = busy;
     }
+
+    public String getOwnerId() {return userId;}
+
+    public void setOwnerId(String ownerId) {this.userId = ownerId;}
 
     @Override
     public String toString() {

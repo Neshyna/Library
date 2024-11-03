@@ -219,7 +219,8 @@ public class MenuEdited {
                 System.out.println("2. Find a book by id");
                 System.out.println("3. Edit a book");
                 System.out.println("4. Find a user by id");
-                System.out.println("5. Show all users");
+                System.out.println("5. View all books by user ID");
+                System.out.println("6. Show all users");
                 System.out.println("0. Back");
 
                 System.out.println("\n Select an option");
@@ -289,6 +290,14 @@ public class MenuEdited {
                 waitRead();
                 break;
             case 5:
+                System.out.println("View all books by user ID");
+                System.out.println("Insert user id");
+                userId = scanner.nextInt();
+                scanner.nextLine();
+                showBooksByUserId(String.valueOf(userId));
+                break;
+
+            case 6:
                 System.out.println("Show all users: ");
                 MyList<User> allUsers = service.getAllUsers();
                 printUsers(allUsers);
@@ -296,7 +305,11 @@ public class MenuEdited {
                 break;
             default:
                 System.out.println("\nIncorrect input, please enter a number");
+
         }
+    }
+
+    private void showBooksByUserId(String userId) {
     }
 
     private void printUsers(MyList<User> users) {

@@ -14,4 +14,6 @@ public interface UserRepo {
     User findUserById(int userId);
 
     MyList<User> getAllUsers();
+
+    User getUserById(int userId);
 }

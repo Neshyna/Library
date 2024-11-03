@@ -78,4 +78,9 @@ public class UserRepoImpl implements UserRepo {
     public MyList<User> getAllUsers() {
         return users;
     }
+
+    @Override
+    public User getUserById(int userId) {
+        return null;
+    }
 }

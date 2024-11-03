@@ -4,9 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
-/*
 
- */
 
     public class MyArrayList<T> implements MyList<T> ,Iterable<T>{
         private T[] array;
@@ -14,7 +12,8 @@ import java.util.Iterator;
 
         @SuppressWarnings("unchecked") // Подавляю предупреждение компилятора о непроверяемом приведении типа
         public MyArrayList() {
-            array = (T[]) new Object[10];
+            array = (T[]) new Object[10]; // Инициализация массива с размером 10
+            cursor = 0; // Инициализация курсора
         }
 
         @SuppressWarnings("unchecked")
@@ -211,19 +210,27 @@ import java.util.Iterator;
         @SuppressWarnings("unchecked")
         @Override
         public T[] toArray() {
-            return null;
+            return Arrays.copyOf(array, cursor); // Возвращаем массив с текущими элементами
         }
 
         @Override
-        public Iterator<T> iterator() {
-            return new MyIterator();
-        }
+            public Iterator<T> iterator() {
+                return new MyIterator(); // Возвращаем новый итератор
+            }
 
-        public void sort(Comparator<T> comparing) {
+            @Override
+            public void sort(Comparator<T> comparator) {
+                if (cursor <= 1) {
+                    return; // Ничего не делаем, если массив пуст или содержит один элемент
+                }
 
-        }
+                T[] sortedArray = (T[]) Arrays.copyOf(array, cursor); // Копируем массив
+                Arrays.sort(sortedArray, comparator); // Сортируем копию
+                System.arraycopy(sortedArray, 0, array, 0, cursor); // Копируем отсортированные элементы обратно
+            }
 
-        private class MyIterator implements Iterator<T>{
+
+            private class MyIterator implements Iterator<T>{
 
             int currentIndex = 0;
             //boolean hasNext(); to check if there is next element
@@ -243,6 +250,7 @@ import java.util.Iterator;
             }
         }
     }
+
 
 /*
 1. Добавлять в массив элемент (не думая об индексах, размере массива) ++

@@ -1,6 +1,7 @@
 package Repo;
 
 import Model.Book;
+import Model.User;
 import Utils.MyList;
 
 public interface BookRepo {
@@ -21,7 +22,7 @@ public interface BookRepo {
 
     MyList<Book> getBooksSortedByName(); //Опционально 2  Список всех книг, отсортированный по названию книги
 
-    // Этот метод создает новую книгу и добавляет ее в репозиторий bookRepo.Реализовуется в MainServiceImpl
+    // Этот метод создает новую книгу и добавляет ее в репозиторий bookRepo. Реализуется в MainServiceImpl
     void addNewBook(Book newBook);
 
     void updateBook(Book book);
@@ -30,5 +31,6 @@ public interface BookRepo {
 
     Book getBookById(int bookId);
 
+    MyList<Book> getUserBooksByUserId(User user);
 }
 
