@@ -74,7 +74,7 @@ public class Book {
 
     public String getOwnerId() {return userId;}
 
-    public void setOwnerId(String ownerId) {this.userId = ownerId;}
+
 
     @Override
     public String toString() {
