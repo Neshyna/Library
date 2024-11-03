@@ -4,9 +4,7 @@ import Model.Book;
 import Utils.MyArrayList;
 import Utils.MyList;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BookRepoImpl implements BookRepo {
@@ -21,28 +19,28 @@ public class BookRepoImpl implements BookRepo {
     }
 
     //Создадим DemoLibrary
-    public void addDefaultBooks(String author, String name, int year ){
-        int bookId = books.size() + 1;
+    public void addDefaultBooks(){
+        books.addAll(
 
-        Book newBook = new Book("Neshyna1", "Masha1", 1234, 1);
-        Book newBook1 = new Book("Neshyna2", "Masha2", 1234, 2);
-        Book newBook2 = new Book("Neshyna3", "Masha3", 1234, 3);
-        Book newBook3 = new Book("Leo Tolstoy", "War and Peace", 1869, 4);
-        Book newBook4 = new Book("F. Scott Fitzgerald", "The Great Gatsby", 1925, 5);
-        Book newBook5 = new Book("Jane Austen", "Pride and Prejudice", 1813, 6);
-        Book newBook6 = new Book("George Orwell", "1984", 1949, 7);
-        Book newBook7 = new Book("Mark Twain", "Adventures of Huckleberry Finn", 1884, 8);
-        Book newBook8 = new Book("J.K. Rowling", "Harry Potter and the Sorcerer's Stone", 1997, 9);
-        Book newBook9 = new Book("Harper Lee", "To Kill a Mockingbird", 1960, 10);
-        Book newBook10 = new Book("Ernest Hemingway", "The Old Man and the Sea", 1952, 11);
-        Book newBook11 = new Book("Charles Dickens", "Great Expectations", 1860, 12);
-        Book newBook12 = new Book("Virginia Woolf", "Mrs. Dalloway", 1925, 13);
-        Book newBook13 = new Book("Isaac Asimov", "Foundation", 1951, 13);
-        Book newBook14 = new Book("Franz Kafka", "The Metamorphosis", 1915, 14);
-        Book newBook15 = new Book("Margaret Atwood", "The Handmaid's Tale", 1985, 15);
-        Book newBook16 = new Book("Ray Bradbury", "Fahrenheit 451", 1953, 16);
-        Book newBook17 = new Book("Haruki Murakami", "Kafka on the Shore", 2002, 17);
-        books.add(newBook);
+        new Book("Neshyna1", "Masha1", 1234, 1),
+        new Book("Neshyna2", "Masha2", 1234, 2),
+        new Book("Neshyna3", "Masha3", 1234, 3),
+        new Book("Leo Tolstoy", "War and Peace", 1869, 4),
+        new Book("F. Scott Fitzgerald", "The Great Gatsby", 1925, 5),
+        new Book("Jane Austen", "Pride and Prejudice", 1813, 6),
+        new Book("George Orwell", "1984", 1949, 7),
+        new Book("Mark Twain", "Adventures of Huckleberry Finn", 1884, 8),
+        new Book("J.K. Rowling", "Harry Potter and the Sorcerer's Stone", 1997, 9),
+        new Book("Harper Lee", "To Kill a Mockingbird", 1960, 10),
+        new Book("Ernest Hemingway", "The Old Man and the Sea", 1952, 11),
+        new Book("Charles Dickens", "Great Expectations", 1860, 12),
+        new Book("Virginia Woolf", "Mrs. Dalloway", 1925, 13),
+        new Book("Isaac Asimov", "Foundation", 1951, 13),
+        new Book("Franz Kafka", "The Metamorphosis", 1915, 14),
+        new Book("Margaret Atwood", "The Handmaid's Tale", 1985, 15),
+        new Book("Ray Bradbury", "Fahrenheit 451", 1953, 16),
+        new Book("Haruki Murakami", "Kafka on the Shore", 2002, 17)
+        );
     }
 
     @Override
@@ -133,7 +131,6 @@ public class BookRepoImpl implements BookRepo {
     }
 
     @Override
-
     public void addNewBook(Book book) {
         books.add(book);
     }

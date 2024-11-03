@@ -1,10 +1,9 @@
 package Repo;
 
 import Model.User;
+import Utils.MyList;
 
 public interface UserRepo {
-
-
 
     User addUser(String email, String password);
 
@@ -13,4 +12,6 @@ public interface UserRepo {
     User getUserEmail(String email);
 
     User findUserById(int userId);
+
+    MyList<User> getAllUsers();
 }
