@@ -200,13 +200,13 @@ public class MainServiceImpl implements MainService {
     public MyList<Book> getBooksSortedByName() {
         MyList<Book> booksSortedByName = bookRepo.getBooksSortedByName();
         return booksSortedByName;
-        }
+    }
 
     @Override
     public MyList<Book> getBooksSortedByAuthor() {
-         MyList<Book> booksSortedByAuthor = bookRepo.getBooksSortedByAuthor();
-         return booksSortedByAuthor;
-        }
+        MyList<Book> booksSortedByAuthor = bookRepo.getBooksSortedByAuthor();
+        return booksSortedByAuthor;
+    }
 
     @Override
     public User findUserById(int userId) {
@@ -228,10 +228,15 @@ public class MainServiceImpl implements MainService {
             return allUsers;
         }
     }
+    public MyList<Book> findBooksByNamePart(String namePart) {
+        return bookRepo.getByNamePart(namePart);
+    }
+
+    public MyList<Book> findBooksByAuthor(String authorPart) {
+        return bookRepo.getByAuthor(authorPart);
+    }
 
     public User getActiveUser(){
         return activUser;
     }
 }
-
-

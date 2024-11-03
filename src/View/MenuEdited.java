@@ -64,7 +64,7 @@ public class MenuEdited {
                 boolean user1 = service.loginUser(email2, password1);
 
                 if (user1 == true) {
-                   // System.out.println("User successfully logged in");
+                    // System.out.println("User successfully logged in");
                     showHomePage();
                 }
                 waitRead();
@@ -212,25 +212,25 @@ public class MenuEdited {
     }
 
     private void showAdminMenu () {
-            while (true) {
-                System.out.println("Admin menu");
+        while (true) {
+            System.out.println("Admin menu");
 
-                System.out.println("1. Add a book");
-                System.out.println("2. Find a book by id");
-                System.out.println("3. Edit a book");
-                System.out.println("4. Find a user by id");
-                System.out.println("5. Show all users");
-                System.out.println("0. Back");
+            System.out.println("1. Add a book");
+            System.out.println("2. Find a book by id");
+            System.out.println("3. Edit a book");
+            System.out.println("4. Find a user by id");
+            System.out.println("5. Show all users");
+            System.out.println("0. Back");
 
-                System.out.println("\n Select an option");
-                int input = scanner.nextInt();
-                scanner.nextLine();
+            System.out.println("\n Select an option");
+            int input = scanner.nextInt();
+            scanner.nextLine();
 
-                if (input == 0) break;
+            if (input == 0) break;
 
-                handleAdminMenuChoice(input);
-            }
+            handleAdminMenuChoice(input);
         }
+    }
 
     private void handleAdminMenuChoice(int input) {
         switch (input) {
@@ -306,4 +306,3 @@ public class MenuEdited {
         }
     }
 }
-

@@ -138,4 +138,3 @@ if (symbols.indexOf(ch) >= 0) isSpecialSymbol = true;
     }
 
 }
-

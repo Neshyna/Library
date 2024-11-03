@@ -4,17 +4,17 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
-/*
 
- */
 
     public class MyArrayList<T> implements MyList<T> ,Iterable<T>{
         private T[] array;
+
         private int cursor; // присвоено значение по умолчанию = 0;
 
-        @SuppressWarnings("unchecked") // Подавляю предупреждение компилятора о непроверяемом приведении типа
+        @SuppressWarnings("unchecked")
         public MyArrayList() {
-            array = (T[]) new Object[10];
+            array = (T[]) new Object[10]; // Инициализация массива с размером 10
+            cursor = 0; // Инициализация курсора
         }
 
         @SuppressWarnings("unchecked")
@@ -207,20 +207,26 @@ import java.util.Iterator;
             return -1;
         }
 
-        // Вернуть наш магический массив в виде обычного массива
         @SuppressWarnings("unchecked")
         @Override
         public T[] toArray() {
-            return null;
+            return Arrays.copyOf(array, cursor); // Возвращаем массив с текущими элементами
         }
 
         @Override
         public Iterator<T> iterator() {
-            return new MyIterator();
+            return new MyIterator(); // Возвращаем новый итератор
         }
 
-        public void sort(Comparator<T> comparing) {
+        @Override
+        public void sort(Comparator<T> comparator) {
+            if (cursor <= 1) {
+                return; // Ничего не делаем, если массив пуст или содержит один элемент
+            }
 
+            T[] sortedArray = (T[]) Arrays.copyOf(array, cursor); // Копируем массив
+            Arrays.sort(sortedArray, comparator); // Сортируем копию
+            System.arraycopy(sortedArray, 0, array, 0, cursor); // Копируем отсортированные элементы обратно
         }
 
         private class MyIterator implements Iterator<T>{
@@ -242,7 +248,9 @@ import java.util.Iterator;
                 //return array[currentIndex];
             }
         }
+
     }
+
 
 /*
 1. Добавлять в массив элемент (не думая об индексах, размере массива) ++
