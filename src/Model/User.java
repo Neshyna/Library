@@ -23,7 +23,6 @@ public class User {
         this.email = email;
         this.id = ++userIdCounter; // Генерируем уникальный ID
         this.isBlocked = isBlocked;
-        this.isAdmin = isAdmin;
     }
 
     public boolean isBlocked() {
@@ -32,10 +31,6 @@ public class User {
 
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
     }
 
     public void setAdmin(boolean admin) {
@@ -82,7 +77,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", isBlocked=" + isBlocked +
-                ", isAdmin=" + isAdmin +
                 ", userBooks=" + userBooks +
                 '}';
     }

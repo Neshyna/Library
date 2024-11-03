@@ -4,9 +4,7 @@ import Model.Book;
 import Model.Role;
 import Model.User;
 import Repo.BookRepo;
-import Repo.BookRepoImpl;
 import Repo.UserRepo;
-import Repo.UserRepoImpl;
 import Utils.MyArrayList;
 import Utils.MyList;
 import Utils.PersonValidator;
@@ -29,7 +27,7 @@ public class MainServiceImpl implements MainService {
             return;
         }
         bookRepo.addNewBook(new Book(author, name, year, bookId));
-        System.out.println("Adding book: " + name + " by " + author);
+        System.out.println("The book: " + name + " by " + author + " is added to the library");
     }
 
     @Override
@@ -39,7 +37,6 @@ public class MainServiceImpl implements MainService {
             System.out.println("No books found.");
             return new MyArrayList<>(); // Возвращаем пустой список
         } else {
-            System.out.println("Books retrieved successfully.");
             return books;
         }
     }
@@ -51,7 +48,7 @@ public class MainServiceImpl implements MainService {
             System.out.println("No books found with the name: " + name);
             return new MyArrayList<>(); // Возвращаем пустой список
         } else {
-            System.out.println("Books retrieved successfully with the name: " + name);
+            System.out.println("Books found successfully with the name: " + name);
             return books;
         }
     }
@@ -73,7 +70,10 @@ public class MainServiceImpl implements MainService {
         MyList<Book> busyBooks = bookRepo.getAllBooks();
         MyList<Book> result = new MyArrayList<>();
         for (Book book : busyBooks) {
-            if (book.isBusy()) {
+            if (busyBooks.isEmpty()) {
+                System.out.println("No available books found.");
+            }
+            if(book.isBusy()) {
                 result.add(book);
             }
         }
@@ -113,6 +113,7 @@ public class MainServiceImpl implements MainService {
             return false;
         }
         activUser.getUserBooks().add(book);
+        book.setBusy(true);
         System.out.println("Book with ID " + bookId + " successfully borrowed.");
         return true;
     }
@@ -176,7 +177,7 @@ public class MainServiceImpl implements MainService {
             return false;
         }
         activUser = user; // Исправлено
-        System.out.println("User logged in successfully");
+        System.out.println("User successfully logged in ");
         return true;
     }
 
@@ -197,25 +198,34 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public MyList<Book> getBooksSortedByName() {
-        MyList<Book> books = bookRepo.getBooksSortedByName(name);
-        if (books == null || books.isEmpty()) {
-            System.out.println("No books found by name: " + name);
-            return new MyArrayList<>(); // Возвращаем пустой список
-        } else {
-            System.out.println("Books retrieved successfully by name: " + name);
-            return books;
+        MyList<Book> booksSortedByName = bookRepo.getBooksSortedByName();
+        return booksSortedByName;
         }
-    }
 
     @Override
     public MyList<Book> getBooksSortedByAuthor() {
-         MyList<Book> books = bookRepo.getBooksSortedByAuthor(author);
-        if (books == null || books.isEmpty()) {
-            System.out.println("No books found by author: " + author);
+         MyList<Book> booksSortedByAuthor = bookRepo.getBooksSortedByAuthor();
+         return booksSortedByAuthor;
+        }
+
+    @Override
+    public User findUserById(int userId) {
+        User userById = userRepo.findUserById(userId);
+        if (userById == null) {
+            System.out.println("Book with ID " + userById + " not found.");
+        }
+        return userById;
+    }
+
+    @Override
+    public MyList<User> getAllUsers() {
+        MyList<User> allUsers = userRepo.getAllUsers();
+        if (allUsers == null || allUsers.isEmpty()) {
+            System.out.println("No users found.");
             return new MyArrayList<>(); // Возвращаем пустой список
         } else {
-            System.out.println("Books retrieved successfully by author: " + author);
-            return books;
+            System.out.println("Show all users: ");
+            return allUsers;
         }
     }
 

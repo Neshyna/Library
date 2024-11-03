@@ -1,16 +1,13 @@
 package Repo;
 
-import Model.Book;
 import Model.Role;
 import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
 
-import static Utils.PersonValidator.isPasswordValid;
-
 public class UserRepoImpl implements UserRepo {
 
-    private final MyList<User> users= new MyArrayList<>();
+    private MyList<User> users = new MyArrayList<>();
 
     public UserRepoImpl(int i) {
             this.users = new MyArrayList<>();
@@ -27,12 +24,14 @@ public class UserRepoImpl implements UserRepo {
 
     public void giveAdminPermissions(String email, String password){
         for (User user : users){
+            if (email.equals(user.getEmail())){
             user.setRole(Role.ADMIN);
+            }
         }
     }
 
     @Override
- public User addUser(String email, String password) {
+    public User addUser(String email, String password) {
 
         // Проверяем, существует ли уже пользователь с таким email
         if (isMailExist(email)) {
@@ -73,5 +72,10 @@ public class UserRepoImpl implements UserRepo {
             }
         }
         return null; // Если пользователь не найден, возвращаем null
+    }
+
+    @Override
+    public MyList<User> getAllUsers() {
+        return users;
     }
 }
