@@ -27,7 +27,7 @@ public class MainServiceImpl implements MainService {
             return;
         }
         bookRepo.addNewBook(new Book(author, name, year, bookId));
-        System.out.println("Adding book: " + name + " by " + author);
+        System.out.println("The book: " + name + " by " + author + " is added to the library");
     }
 
     @Override
@@ -113,6 +113,7 @@ public class MainServiceImpl implements MainService {
             return false;
         }
         activUser.getUserBooks().add(book);
+        book.setBusy(true);
         System.out.println("Book with ID " + bookId + " successfully borrowed.");
         return true;
     }
@@ -176,7 +177,7 @@ public class MainServiceImpl implements MainService {
             return false;
         }
         activUser = user; // Исправлено
-        System.out.println("User logged in successfully");
+        System.out.println("User successfully logged in ");
         return true;
     }
 

@@ -140,7 +140,7 @@ public class BookRepoImpl implements BookRepo {
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getBookId() == book.getBookId()) {
                 books.set(i, book);
-                System.out.println("Book with ID " + book.getBookId() + " successfully updated.");
+                //System.out.println("Book with ID " + book.getBookId() + " successfully updated.");
                 return;
             }
         }
@@ -150,8 +150,9 @@ public class BookRepoImpl implements BookRepo {
     @Override
     public Book getBookById(int bookId) {
         for(Book book : books){
-            if (bookId == book.getBookId());
+            if (bookId == book.getBookId()){
             return book;
+            }
         }
         return null;
     }

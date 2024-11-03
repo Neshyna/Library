@@ -64,7 +64,7 @@ public class MenuEdited {
                 boolean user1 = service.loginUser(email2, password1);
 
                 if (user1 == true) {
-                    System.out.println("User successfully logged in");
+                   // System.out.println("User successfully logged in");
                     showHomePage();
                 }
                 waitRead();
@@ -262,13 +262,14 @@ public class MenuEdited {
                 break;
             case 3:
                 System.out.println("Edit a book");
-                System.out.println("Insert book id");
 
+                System.out.println("Insert book id");
                 bookId = scanner.nextInt();
                 service.getBookById(bookId);
 
                 System.out.println("Insert new title");
                 String newName = scanner.nextLine();
+                scanner.nextLine();
 
                 System.out.println("Insert new author");
                 String newAuthor = scanner.nextLine();
@@ -296,7 +297,6 @@ public class MenuEdited {
             default:
                 System.out.println("\nIncorrect input, please enter a number");
         }
-
     }
 
     private void printUsers(MyList<User> users) {

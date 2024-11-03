@@ -8,7 +8,6 @@ public class Book {
     private String name;
     private int year;
     private boolean isBusy;
-    private User holder;//data type user
     private int bookId;
 
     public Book(String author, String name, int year, int bookId) {
@@ -16,7 +15,6 @@ public class Book {
         this.name = name;
         this.year = year;
         this.bookId = bookId;
-
     }
 
     @Override
@@ -24,12 +22,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return year == book.year && isBusy == book.isBusy && bookId == book.bookId && Objects.equals(author, book.author) && Objects.equals(name, book.name) && Objects.equals(holder, book.holder);
+        return year == book.year && isBusy == book.isBusy && bookId == book.bookId && Objects.equals(author, book.author) && Objects.equals(name, book.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(author, name, year, isBusy, holder, bookId);
+        return Objects.hash(author, name, year, isBusy, bookId);
     }
 
     public int getBookId() {
@@ -72,14 +70,6 @@ public class Book {
         isBusy = busy;
     }
 
-    public User getHolder() {
-        return holder;
-    }
-
-    public void setHolder(User holder) {
-        this.holder = holder;
-    }
-
     @Override
     public String toString() {
         return "Book{" +
@@ -87,7 +77,6 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", year=" + year +
                 ", isBusy=" + isBusy +
-                ", holder=" + holder +
                 ", bookId=" + bookId +
                 '}';
     }
