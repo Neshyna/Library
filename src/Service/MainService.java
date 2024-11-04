@@ -35,6 +35,8 @@ public interface MainService {
     MyList<Book> getBooksSortedByName();
 
     MyList<Book> getBooksSortedByAuthor();
+    MyList<Book> getBooksSortedById() ;
+
 
     User findUserById(int userId);
 

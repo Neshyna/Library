@@ -214,6 +214,12 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
+    public MyList<Book> getBooksSortedById() {
+        MyList<Book> booksSortedById = bookRepo.getBooksSortedById();
+        return bookRepo.getBooksSortedById();
+    }
+
+    @Override
     public User findUserById(int userId) {
         User userById = userRepo.findUserById(userId);
         if (userById == null) {

@@ -199,8 +199,8 @@ public class MenuEdited {
                 waitRead();
                 break;
             case 3:
-                MyList<Book> booksAll = service.getAllBooks();
-                printBooks(booksAll);
+                MyList<Book> booksSortById = service.getBooksSortedById();
+                printBooks(booksSortById);
                 waitRead();
                 break;
             case 4:
