@@ -72,7 +72,7 @@ public class Book {
         isBusy = busy;
     }
 
-    public String getOwnerId() {return userId;}
+    public String getUserId() {return userId;}
 
 
 

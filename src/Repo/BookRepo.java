@@ -30,7 +30,9 @@ public interface BookRepo {
     public static void addDefaultBooks(){};
 
     Book getBookById(int bookId);
-
+/*
     MyList<Book> getUserBooksByUserId(User user);
+
+ */
 }
 
