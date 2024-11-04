@@ -11,11 +11,10 @@ public class User {
     private String password;
     private Role role;
     boolean isBlocked;
-    boolean isAdmin;
 
     private final MyList<Book> userBooks;
 
-    public User( String email, String password) {
+    public User(String email, String password) {
 
         this.userBooks = new MyArrayList<>();
         this.role = Role.USER;
@@ -31,10 +30,6 @@ public class User {
 
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
     }
 
     public String getEmail() {
@@ -65,11 +60,30 @@ public class User {
         this.role = role;
     }
 
-    public MyList<Book> getUserBooks() {return userBooks;}
+    public MyList<Book> getUserBooks() {
+        return userBooks;
+    }
 
-    public String toString() {return null;}
+    public static int getUserIdCounter() {
+        return userIdCounter;
+    }
 
-    private User getActiveUser() {return null;}
+    public static void setUserIdCounter(int userIdCounter) {
+        User.userIdCounter = userIdCounter;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id: " + id +
+                ", email: '" + email + '\'' +
+                ", password: '" + password + '\'' +
+                ", role: " + role +
+                ", isBlocked: " + isBlocked +
+                ", userBooks: " + userBooks +
+                '}';
+    }
+
 }
 
 

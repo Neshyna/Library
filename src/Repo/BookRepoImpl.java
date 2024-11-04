@@ -14,7 +14,7 @@ public class BookRepoImpl implements BookRepo {
 
     private final AtomicInteger currentId = new AtomicInteger(1);
 
-    public BookRepoImpl(int i) {// метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.он нужен в MainServiceTest
+    public BookRepoImpl(int i) {// метод, который используется для инициализации объекта BookRepoImpl с начальным значением количества книг.он нужен в UnitTest
         this.books = new MyArrayList<>();
         addDefaultBooks();
     }
@@ -64,7 +64,7 @@ public class BookRepoImpl implements BookRepo {
     public MyList<Book> getBookByName(String namePart) {
         MyList<Book> foundBooks = new MyArrayList<>();
         for (Book book : books) {
-            if (book.getName().contains(namePart)) {
+            if (book.getName().toLowerCase().contains(namePart.toLowerCase())) {
                 foundBooks.add(book);
             }
         }
@@ -157,16 +157,6 @@ public class BookRepoImpl implements BookRepo {
         }
         return null;
     }
-/*
-    @Override
-    public MyList<Book> getUserBooksByUserId(User user) {
-        MyList<Book> userBooks = new MyArrayList<>();
-        for (Book book : books) {
-            if (book.getOwnerId().equals(user.getId())) { // Предполагая, что у книги есть поле ownerId
-                userBooks.add(book);
-            }
-        }
-        return userBooks;
-    }*/
+
 }
 
