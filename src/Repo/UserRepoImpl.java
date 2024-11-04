@@ -78,4 +78,21 @@ public class UserRepoImpl implements UserRepo {
     public MyList<User> getAllUsers() {
         return users;
     }
+
+    @Override
+    public User getUserById(int userId) {
+        return null;
+    }
+    /*
+    @Override
+    public MyList<Book> getUserBooksByUserId(User user) {
+        MyList<Book> userBooks = new MyArrayList<>();
+        for (Book book : books) {
+            if (user.getUserById().equals(user.getId())) { // Предполагая, что у книги есть поле ownerId
+                userBooks.add(book);
+            }
+        }
+        return userBooks;
+
+     */
 }

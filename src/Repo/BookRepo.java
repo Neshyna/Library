@@ -1,6 +1,7 @@
 package Repo;
 
 import Model.Book;
+import Model.User;
 import Utils.MyList;
 
 public interface BookRepo {
@@ -9,7 +10,7 @@ public interface BookRepo {
 
     void addBook(String authorPart, String namePart, int year, int bookId);//добавление новой книги в коллекцию
 
-    MyList<Book> getByNamePart(String namePart);  // Поиск книги по полному или частичному названию
+    MyList<Book> getBookByName(String namePart);  // Поиск книги по полному или частичному названию
 
     MyList<Book> getByAuthor(String authorPart);
 
@@ -29,6 +30,9 @@ public interface BookRepo {
     public static void addDefaultBooks(){};
 
     Book getBookById(int bookId);
+/*
+    MyList<Book> getUserBooksByUserId(User user);
 
+ */
 }
 

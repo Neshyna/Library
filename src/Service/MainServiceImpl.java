@@ -43,7 +43,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public MyList<Book> getBookByName(String name) {
-        MyList<Book> books = bookRepo.getByNamePart(name);
+        MyList<Book> books = bookRepo.getBookByName(name);
         if (books == null || books.isEmpty()) {
             System.out.println("No books found with the name: " + name);
             return new MyArrayList<>(); // Возвращаем пустой список
@@ -73,7 +73,7 @@ public class MainServiceImpl implements MainService {
             if (busyBooks.isEmpty()) {
                 System.out.println("No available books found.");
             }
-            if(book.isBusy()) {
+            if (book.isBusy()) {
                 result.add(book);
             }
         }
@@ -116,6 +116,10 @@ public class MainServiceImpl implements MainService {
         book.setBusy(true);
         System.out.println("Book with ID " + bookId + " successfully borrowed.");
         return true;
+    }
+
+    private User getActiveUser() {
+        return null;
     }
 
     @Override
@@ -228,15 +232,31 @@ public class MainServiceImpl implements MainService {
             return allUsers;
         }
     }
-    public MyList<Book> findBooksByNamePart(String namePart) {
-        return bookRepo.getByNamePart(namePart);
+   
+    @Override
+    public boolean isUserAdmin() {
+        if (activUser.getRole() != Role.ADMIN) {
+            return false;
+        }
+        return true;
     }
 
-    public MyList<Book> findBooksByAuthor(String authorPart) {
-        return bookRepo.getByAuthor(authorPart);
-    }
+    @Override
+    public void getUserBooksByUserId(int userId) {
+        User user = userRepo.getUserById(userId);
+        if (user == null) {
+            System.out.println("User not found.");
+            return;
+        }
 
-    public User getActiveUser(){
-        return activUser;
+        MyList<Book> userBooks = bookRepo.getUserBooksByUserId(userId);
+        if (userBooks.isEmpty()) {
+            System.out.println("No books found for this user.");
+        } else {
+            System.out.println("Books owned by user " + user.getId() + ":");
+            for (Book book : userBooks) {
+                System.out.println(book);
+            }
+        }
     }
 }

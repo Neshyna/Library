@@ -65,21 +65,14 @@ public class User {
         this.role = role;
     }
 
-    public MyList<Book> getUserBooks() {
-        return userBooks;
-    }
+    public MyList<Book> getUserBooks() {return userBooks;}
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", isBlocked=" + isBlocked +
-                ", userBooks=" + userBooks +
-                '}';
-    }
+    public String toString() {return null;}
 
-
+    private User getActiveUser() {return null;}
 }
+
+
+
+
+

@@ -68,21 +68,21 @@ class LibraryServiceImplTest {
         assertEquals(3, allBooks.size());
     }
     @Test
-    void testGetByNamePart_Found() {
+    void testGetBookByName_Found() {
         bookRepo.addBook("Book One", "Author One", 2020, 1);
 
         for (Book book : bookRepo.getAllBooks()) {
             System.out.println(book.getName()); // Вывод имени каждой книги
         }
-        MyList<Book> result = bookRepo.getByNamePart("Book One");
+        MyList<Book> result = bookRepo.getBookByName("Book One");
 
         assertFalse(result.isEmpty(), "The result list should not be empty");
         assertEquals("Book One", result.get(0).getName(), "The first book name should be 'Book One'");
     }
 
     @Test
-    void testGetByNamePart_NotFound() {
-        MyList<Book> result = bookRepo.getByNamePart("Non-Existent Book");
+    void testGetBookByName_NotFound() {
+        MyList<Book> result = bookRepo.getBookByName("Non-Existent Book");
         assertTrue(result.isEmpty());
     }
     @Test

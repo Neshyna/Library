@@ -39,4 +39,10 @@ public interface MainService {
     User findUserById(int userId);
 
     MyList<User> getAllUsers();
+
+    void getUserBooksByUserId(int userId);
+
+    boolean isUserAdmin();
+
 }
+
