@@ -79,7 +79,7 @@ public class MenuEdited {
                 boolean user1 = service.loginUser(email2, password1);
 
                 if (user1 == true) {
-                   // System.out.println("User successfully logged in");
+                    // System.out.println("User successfully logged in");
                     showHomePage();
                 }
                 waitRead();
@@ -264,11 +264,11 @@ public class MenuEdited {
                 int input = scanner.nextInt();
                 scanner.nextLine();
 
-                if (input == 0) break;
+            if (input == 0) break;
 
-                handleAdminMenuChoice(input);
-            }
+            handleAdminMenuChoice(input);
         }
+    }
 
     private void handleAdminMenuChoice(int input) {
         switch (input) {
@@ -364,4 +364,3 @@ public class MenuEdited {
         }
     }
 }
-

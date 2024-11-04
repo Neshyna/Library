@@ -232,7 +232,7 @@ public class MainServiceImpl implements MainService {
             return allUsers;
         }
     }
-
+   
     @Override
     public boolean isUserAdmin() {
         if (activUser.getRole() != Role.ADMIN) {
@@ -249,7 +249,7 @@ public class MainServiceImpl implements MainService {
             return;
         }
 
-        MyList<Book> userBooks = bookRepo.getUserBooksByUserId(user);
+        MyList<Book> userBooks = bookRepo.getUserBooksByUserId(userId);
         if (userBooks.isEmpty()) {
             System.out.println("No books found for this user.");
         } else {

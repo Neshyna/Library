@@ -45,3 +45,4 @@ public interface MainService {
     boolean isUserAdmin();
 
 }
+

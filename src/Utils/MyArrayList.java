@@ -8,9 +8,10 @@ import java.util.Iterator;
 
     public class MyArrayList<T> implements MyList<T> ,Iterable<T>{
         private T[] array;
+
         private int cursor; // присвоено значение по умолчанию = 0;
 
-        @SuppressWarnings("unchecked") // Подавляю предупреждение компилятора о непроверяемом приведении типа
+        @SuppressWarnings("unchecked")
         public MyArrayList() {
             array = (T[]) new Object[10]; // Инициализация массива с размером 10
             cursor = 0; // Инициализация курсора
@@ -171,7 +172,6 @@ import java.util.Iterator;
                 array[index] = value;
             }
             // Если нет, ничего не делаем
-
         }
 
         // Является ли коллекция пустой
@@ -206,7 +206,6 @@ import java.util.Iterator;
             return -1;
         }
 
-        // Вернуть наш магический массив в виде обычного массива
         @SuppressWarnings("unchecked")
         @Override
         public T[] toArray() {
@@ -214,23 +213,22 @@ import java.util.Iterator;
         }
 
         @Override
-            public Iterator<T> iterator() {
-                return new MyIterator(); // Возвращаем новый итератор
+        public Iterator<T> iterator() {
+            return new MyIterator(); // Возвращаем новый итератор
+        }
+
+        @Override
+        public void sort(Comparator<T> comparator) {
+            if (cursor <= 1) {
+                return; // Ничего не делаем, если массив пуст или содержит один элемент
             }
 
-            @Override
-            public void sort(Comparator<T> comparator) {
-                if (cursor <= 1) {
-                    return; // Ничего не делаем, если массив пуст или содержит один элемент
-                }
+            T[] sortedArray = (T[]) Arrays.copyOf(array, cursor); // Копируем массив
+            Arrays.sort(sortedArray, comparator); // Сортируем копию
+            System.arraycopy(sortedArray, 0, array, 0, cursor); // Копируем отсортированные элементы обратно
+        }
 
-                T[] sortedArray = (T[]) Arrays.copyOf(array, cursor); // Копируем массив
-                Arrays.sort(sortedArray, comparator); // Сортируем копию
-                System.arraycopy(sortedArray, 0, array, 0, cursor); // Копируем отсортированные элементы обратно
-            }
-
-
-            private class MyIterator implements Iterator<T>{
+          private class MyIterator implements Iterator<T>{
 
             int currentIndex = 0;
             //boolean hasNext(); to check if there is next element
@@ -250,20 +248,4 @@ import java.util.Iterator;
             }
         }
     }
-
-
-/*
-1. Добавлять в массив элемент (не думая об индексах, размере массива) ++
-2. Динамическое изменение размера массива ++
-3. Возвращать строковое представление массива (какие элементы тым есть) ++
-4. Добавляем в массив сразу несколько значений. ++
-5. Текущее количество элементов в массиве ++
-6. Возвращает значение по индексу ++
-7. Удаляет элемент по индексу ++ (Есть индекс - удалить этот элемент из массива). Вернуть старое значение (удаленное)
-8. Конструктор, принимающий массив ++
-9. Удаление по значению
-10. Поиск по значению. Возвращает индекс ++
-11. Написать метод lastIndexOf(int value) возвращающий индекс последнего вхождения значения в массиве.
-
- */
 

@@ -148,7 +148,7 @@ class LibraryServiceImplTest {
         assertTrue(sortedByName.get(0).getName().compareTo(sortedByName.get(1).getName()) < 0);
     }
 
-@Test
+    @Test
     void testAddBookAsAdmin() {
         mainService.loginUser("admin@example.com", "adminPassword");
         mainService.addBook("Effective Java", "Joshua Bloch", 2008, 82);
