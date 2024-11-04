@@ -43,7 +43,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public MyList<Book> getBookByName(String name) {
-        MyList<Book> books = bookRepo.getByNamePart(name);
+        MyList<Book> books = bookRepo.getBookByName(name);
         if (books == null || books.isEmpty()) {
             System.out.println("No books found with the name: " + name);
             return new MyArrayList<>(); // Возвращаем пустой список
@@ -73,7 +73,7 @@ public class MainServiceImpl implements MainService {
             if (busyBooks.isEmpty()) {
                 System.out.println("No available books found.");
             }
-            if(book.isBusy()) {
+            if (book.isBusy()) {
                 result.add(book);
             }
         }
@@ -116,6 +116,10 @@ public class MainServiceImpl implements MainService {
         book.setBusy(true);
         System.out.println("Book with ID " + bookId + " successfully borrowed.");
         return true;
+    }
+
+    private User getActiveUser() {
+        return null;
     }
 
     @Override
@@ -200,13 +204,13 @@ public class MainServiceImpl implements MainService {
     public MyList<Book> getBooksSortedByName() {
         MyList<Book> booksSortedByName = bookRepo.getBooksSortedByName();
         return booksSortedByName;
-        }
+    }
 
     @Override
     public MyList<Book> getBooksSortedByAuthor() {
-         MyList<Book> booksSortedByAuthor = bookRepo.getBooksSortedByAuthor();
-         return booksSortedByAuthor;
-        }
+        MyList<Book> booksSortedByAuthor = bookRepo.getBooksSortedByAuthor();
+        return booksSortedByAuthor;
+    }
 
     @Override
     public User findUserById(int userId) {
@@ -229,9 +233,6 @@ public class MainServiceImpl implements MainService {
         }
     }
 
-    public User getActiveUser(){
-        return activUser;
-    }
     @Override
     public boolean isUserAdmin() {
         if (activUser.getRole() != Role.ADMIN) {
@@ -239,6 +240,23 @@ public class MainServiceImpl implements MainService {
         }
         return true;
     }
+
+    @Override
+    public void getUserBooksByUserId(int userId) {
+        User user = userRepo.getUserById(userId);
+        if (user == null) {
+            System.out.println("User not found.");
+            return;
+        }
+
+        MyList<Book> userBooks = bookRepo.getUserBooksByUserId(user);
+        if (userBooks.isEmpty()) {
+            System.out.println("No books found for this user.");
+        } else {
+            System.out.println("Books owned by user " + user.getId() + ":");
+            for (Book book : userBooks) {
+                System.out.println(book);
+            }
+        }
+    }
 }
-
-

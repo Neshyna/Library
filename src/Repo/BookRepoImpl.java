@@ -1,6 +1,7 @@
 package Repo;
 
 import Model.Book;
+import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
 
@@ -60,7 +61,7 @@ public class BookRepoImpl implements BookRepo {
 
     @Override
     // Поиск книги по полному или частичному названию
-    public MyList<Book> getByNamePart(String namePart) {
+    public MyList<Book> getBookByName(String namePart) {
         MyList<Book> foundBooks = new MyArrayList<>();
         for (Book book : books) {
             if (book.getName().contains(namePart)) {
@@ -156,5 +157,16 @@ public class BookRepoImpl implements BookRepo {
         }
         return null;
     }
+/*
+    @Override
+    public MyList<Book> getUserBooksByUserId(User user) {
+        MyList<Book> userBooks = new MyArrayList<>();
+        for (Book book : books) {
+            if (book.getOwnerId().equals(user.getId())) { // Предполагая, что у книги есть поле ownerId
+                userBooks.add(book);
+            }
+        }
+        return userBooks;
+    }*/
 }
 
