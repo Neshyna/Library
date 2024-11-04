@@ -22,6 +22,9 @@ public interface BookRepo {
 
     MyList<Book> getBooksSortedByName(); //Опционально 2  Список всех книг, отсортированный по названию книги
 
+    // Список всех книг, отсортированный по ID
+    MyList<Book> getBooksSortedById();
+
     // Этот метод создает новую книгу и добавляет ее в репозиторий bookRepo. Реализуется в MainServiceImpl
     void addNewBook(Book newBook);
 

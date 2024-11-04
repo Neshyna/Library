@@ -1,7 +1,6 @@
 package Repo;
 
 import Model.Book;
-import Model.User;
 import Utils.MyArrayList;
 import Utils.MyList;
 
@@ -128,6 +127,18 @@ public class BookRepoImpl implements BookRepo {
         }
         // Сортируем книги по имени
         allBooks.sort(Comparator.comparing(Book::getName, Comparator.nullsLast(Comparator.naturalOrder())));
+        return allBooks;
+    }
+    // Список всех книг, отсортированный по ID
+    @Override
+    public MyList<Book> getBooksSortedById() {
+        MyList<Book> allBooks = getAllBooks();
+        // Проверяем, что список не null и не пустой
+        if (allBooks == null || allBooks.isEmpty()) {
+            return new MyArrayList<>();
+        }
+        // Сортируем книги по ID
+        allBooks.sort(Comparator.comparingInt(Book::getBookId));
         return allBooks;
     }
 
