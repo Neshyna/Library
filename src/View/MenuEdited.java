@@ -80,8 +80,8 @@ public class MenuEdited {
                 User user = service.registerUser(email, password);
 
                 if (user != null) {
-                    System.out.println("Registered successfully");
-                    showHomePage();
+                    System.out.println("Registered successfully! Please Login!");
+                    showLoginPage();
                 } else {
                     System.out.println("Registration failed");
                     showLoginPage();
@@ -118,7 +118,11 @@ public class MenuEdited {
                 showBookMenu();
                 break;
             case 2:
+                if (service.isUserAdmin()){
                 showAdminMenu();
+                }else{
+                    System.out.println("Admin menu is available only for admin");
+                }
                 break;
             default:
                 System.out.println("Select an option");
@@ -237,6 +241,7 @@ public class MenuEdited {
             case 1:
                 //add a book
                 System.out.println("Add a book");
+
                 System.out.println("Insert book's title");
                 String name = scanner.nextLine();
 
@@ -265,11 +270,12 @@ public class MenuEdited {
 
                 System.out.println("Insert book id");
                 bookId = scanner.nextInt();
+                scanner.nextLine();
+
                 service.getBookById(bookId);
 
                 System.out.println("Insert new title");
                 String newName = scanner.nextLine();
-                scanner.nextLine();
 
                 System.out.println("Insert new author");
                 String newAuthor = scanner.nextLine();

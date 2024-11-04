@@ -39,4 +39,6 @@ public interface MainService {
     User findUserById(int userId);
 
     MyList<User> getAllUsers();
+
+    boolean isUserAdmin();
 }

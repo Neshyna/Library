@@ -232,6 +232,13 @@ public class MainServiceImpl implements MainService {
     public User getActiveUser(){
         return activUser;
     }
+    @Override
+    public boolean isUserAdmin() {
+        if (activUser.getRole() != Role.ADMIN) {
+            return false;
+        }
+        return true;
+    }
 }
 
 
