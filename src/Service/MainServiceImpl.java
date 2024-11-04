@@ -127,6 +127,7 @@ public class MainServiceImpl implements MainService {
         Book book = bookRepo.getBookById(bookId);
         if (book != null && book.isBusy()) {
             book.setBusy(false);
+            activUser.getUserBooks().remove(book);
             bookRepo.updateBook(book);
             System.out.println("Book with ID " + bookId + " successfully returned.");
         } else {
