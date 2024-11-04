@@ -11,7 +11,6 @@ public class User {
     private String password;
     private Role role;
     boolean isBlocked;
-    boolean isAdmin;
 
     private final MyList<Book> userBooks;
 
@@ -31,10 +30,6 @@ public class User {
 
     public void setBlocked(boolean blocked) {
         isBlocked = blocked;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
     }
 
     public String getEmail() {
@@ -77,20 +72,15 @@ public class User {
         User.userIdCounter = userIdCounter;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", isBlocked=" + isBlocked +
-                ", isAdmin=" + isAdmin +
-                ", userBooks=" + userBooks +
+                "id: " + id +
+                ", email: '" + email + '\'' +
+                ", password: '" + password + '\'' +
+                ", role: " + role +
+                ", isBlocked: " + isBlocked +
+                ", userBooks: " + userBooks +
                 '}';
     }
 

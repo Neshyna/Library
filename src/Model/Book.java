@@ -9,7 +9,6 @@ public class Book {
     private int year;
     private boolean isBusy;
     private int bookId;
-    private String userId; // Идентификатор владельца (пользователя)
 
     public Book(String author, String name, int year, int bookId) {
         this.author = author;
@@ -72,18 +71,14 @@ public class Book {
         isBusy = busy;
     }
 
-    public String getUserId() {return userId;}
-
-
-
     @Override
     public String toString() {
         return "Book{" +
-                "author='" + author + '\'' +
-                ", name='" + name + '\'' +
-                ", year=" + year +
-                ", isBusy=" + isBusy +
-                ", bookId=" + bookId +
+                "author: '" + author + '\'' +
+                ", name: '" + name + '\'' +
+                ", year: " + year +
+                ", isBusy: " + isBusy +
+                ", bookId: " + bookId +
                 '}';
     }
 }

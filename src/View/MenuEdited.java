@@ -26,7 +26,7 @@ public class MenuEdited {
     }
 
     private void waitRead() {
-        System.out.println("\nPress enter to proceed");
+        System.out.println("\nPress enter to proceed.");
         scanner.nextLine();
     }
 
@@ -46,18 +46,18 @@ public class MenuEdited {
     private void showLoginPage() {
         while (true) {
             System.out.println(COLOR_BLUE);
-            System.out.println("Welcome");
+            System.out.println("Welcome!");
             System.out.println(COLOR_WHITE);
             System.out.println("1. Login");
             System.out.println("2. Register new user");
             System.out.println("0. Exit");
-            System.out.println("\nSelect an option");
+            System.out.println("\nSelect an option.");
 
             int input = scanner.nextInt();
             scanner.nextLine();
 
             if (input == 0) {
-                System.out.println("Good bye");
+                System.out.println("Good bye!");
                 System.exit(0);//end app work
             }
             handleLoginPageChoice(input);
@@ -71,9 +71,9 @@ public class MenuEdited {
                 System.out.println(COLOR_GREEN);
                 System.out.println("User authorization");
                 System.out.println(COLOR_YELLOW);
-                System.out.println("Type your email");
+                System.out.println("Type your email:");
                 String email2 = scanner.nextLine();
-                System.out.println("Type your password");
+                System.out.println("Type your password:");
                 String password1 = scanner.nextLine();
 
                 boolean user1 = service.loginUser(email2, password1);
@@ -89,9 +89,9 @@ public class MenuEdited {
                 System.out.println(COLOR_GREEN);
                 System.out.println("New user registration");
                 System.out.println(COLOR_YELLOW);
-                System.out.println("Insert email");
+                System.out.println("Insert email:");
                 String email = scanner.nextLine();
-                System.out.println("Insert password");
+                System.out.println("Insert password:");
                 String password = scanner.nextLine();
 
                 User user = service.registerUser(email, password);
@@ -101,7 +101,7 @@ public class MenuEdited {
                     showLoginPage();
                 } else {
                     System.out.println(COLOR_RED);
-                    System.out.println("Registration failed");
+                    System.out.println("Registration failed.");
                     showLoginPage();
                 }
 
@@ -110,14 +110,14 @@ public class MenuEdited {
 
             default:
                 System.out.println(COLOR_RED);
-                System.out.println("\nIncorrect input, please enter a number");
+                System.out.println("\nIncorrect input, please enter a number!");
         }
     }
 
     private void showHomePage() {
         while (true) {
             System.out.println(COLOR_BLUE);
-            System.out.println("Menu");
+            System.out.println("Menu:");
             System.out.println(COLOR_WHITE);
             System.out.println("1. Book menu");
             System.out.println("2. Admin menu");
@@ -142,18 +142,18 @@ public class MenuEdited {
                 if (service.isUserAdmin()){
                 showAdminMenu();
                 }else{
-                    System.out.println("Admin menu is available only for admin");
+                    System.out.println("Admin menu is available only for admin.");
                 }
                 break;
             default:
-                System.out.println("Select an option");
+                System.out.println("Select an option.");
         }
     }
 
     private void showBookMenu() {
         while (true) {
             System.out.println(COLOR_BLUE);
-            System.out.println("Book menu");
+            System.out.println("Book menu:");
             System.out.println(COLOR_WHITE);
             System.out.println("1. Find a book by title");
             System.out.println("2. Find a book by author");
@@ -166,7 +166,7 @@ public class MenuEdited {
             System.out.println("9. Sort books by author");
             System.out.println("0. Back");
 
-            System.out.println("\n Select an option");
+            System.out.println("\n Select an option.");
             int input = scanner.nextInt();
             scanner.nextLine();
 
@@ -180,9 +180,9 @@ public class MenuEdited {
         switch (input) {
             case 1:
                 System.out.println(COLOR_BLUE);
-                System.out.println("Find a book by title");
+                System.out.println("Find a book by title:");
                 System.out.println(COLOR_YELLOW);
-                System.out.println("Insert book's title");
+                System.out.println("Insert book's title:");
                 String name = scanner.nextLine();
                 MyList<Book> bookByName = service.getBookByName(name);
                 printBooks(bookByName);
@@ -192,7 +192,7 @@ public class MenuEdited {
                 System.out.println(COLOR_BLUE);
                 System.out.println("Find a book by author");
                 System.out.println(COLOR_YELLOW);
-                System.out.println("Insert book's author");
+                System.out.println("Insert book's author:");
                 String author = scanner.nextLine();
                 MyList<Book> bookByAuthor = service.getByAuthor(author);
                 printBooks(bookByAuthor);
@@ -217,7 +217,7 @@ public class MenuEdited {
                 System.out.println(COLOR_BLUE);
                 System.out.println("Borrow a book");
                 System.out.println(COLOR_YELLOW);
-                System.out.println("Insert book id");
+                System.out.println("Insert book id:");
                 int bookId = scanner.nextInt();
                 service.borrowBook(bookId);
                 waitRead();
@@ -226,7 +226,7 @@ public class MenuEdited {
                 System.out.println(COLOR_BLUE);
                 System.out.println("Return a book");
                 System.out.println(COLOR_YELLOW);
-                System.out.println("Insert book id");
+                System.out.println("Insert book id:");
                 bookId = scanner.nextInt();
                 service.returnBook(bookId);
                 waitRead();
@@ -243,20 +243,20 @@ public class MenuEdited {
                 break;
             default:
                 System.out.println(COLOR_RED);
-                System.out.println("\nIncorrect input, please enter a number");
+                System.out.println("\nIncorrect input, please enter a number!");
         }
     }
 
     private void showAdminMenu () {
             while (true) {
                 System.out.println(COLOR_BLUE);
-                System.out.println("Admin menu");
+                System.out.println("Admin menu:");
                 System.out.println(COLOR_WHITE);
                 System.out.println("1. Add a book");
                 System.out.println("2. Find a book by id");
                 System.out.println("3. Edit a book");
                 System.out.println("4. Find a user by id");
-                System.out.println("5. View all books by user ID");
+                System.out.println("5. User's books list");
                 System.out.println("6. Show all users");
                 System.out.println("0. Back");
 
@@ -278,14 +278,14 @@ public class MenuEdited {
                 System.out.println("Add a book");
                 System.out.println(COLOR_WHITE);
 
-                System.out.println("Insert book's title");
+                System.out.println("Insert book's title:");
                 String name = scanner.nextLine();
-                System.out.println("Insert book's author");
+                System.out.println("Insert book's author:");
                 String author = scanner.nextLine();
-                System.out.println("Insert book's year");
+                System.out.println("Insert book's year:");
                 int year = scanner.nextInt();
 
-                System.out.println("Insert book's id");
+                System.out.println("Insert book's id:");
                 int bookId = scanner.nextInt();
 
                 service.addBook(name, author, year, bookId);
@@ -295,17 +295,17 @@ public class MenuEdited {
                 System.out.println(COLOR_BLUE);
                 System.out.println("Find a book by id");
                 System.out.println(COLOR_WHITE);
-                System.out.println("Insert book id");
+                System.out.println("Insert book id:");
                 bookId = scanner.nextInt();
                 Book bookById = service.getBookById(bookId);
-                System.out.println(bookById);
+                System.out.println(bookById.toString());
                 waitRead();
                 break;
             case 3:
                 System.out.println(COLOR_BLUE);
                 System.out.println("Edit a book");
                 System.out.println(COLOR_WHITE);
-                System.out.println("Insert book id");
+                System.out.println("Insert book id:");
                 bookId = scanner.nextInt();
                 scanner.nextLine();
 
@@ -314,10 +314,10 @@ public class MenuEdited {
                 System.out.println("Insert new title");
                 String newName = scanner.nextLine();
 
-                System.out.println("Insert new author");
+                System.out.println("Insert new author:");
                 String newAuthor = scanner.nextLine();
 
-                System.out.println("Insert book's publish year");
+                System.out.println("Insert book's publish year:");
                 int newYear = scanner.nextInt();
 
                 service.editBook(bookId, newName, newAuthor, newYear);
@@ -327,40 +327,39 @@ public class MenuEdited {
                 System.out.println(COLOR_BLUE);
                 System.out.println("Find a user by id");
                 System.out.println(COLOR_WHITE);
-                System.out.println("Insert user id");
+                System.out.println("Insert user id:");
                 int userId = scanner.nextInt();
                 User userById = service.findUserById(userId);
-                System.out.println(userById);
+                System.out.println(userById.toString());
                 waitRead();
                 break;
             case 5:
                 System.out.println(COLOR_BLUE);
-                System.out.println("View all books by user ID");
+                System.out.println("User's books list");
                 System.out.println(COLOR_WHITE);
-                System.out.println("Insert user id");
+                System.out.println("Insert user id:");
                 userId = scanner.nextInt();
                 scanner.nextLine();
                 MyList<Book> userBooksByUserId = service.getUserBooksByUserId(userId);
                 printBooks(userBooksByUserId);
-                service.getUserBooksByUserId(userId);
                 break;
             case 6:
                 System.out.println(COLOR_BLUE);
-                System.out.println("Show all users: ");
+                System.out.println("All users: ");
                 System.out.println(COLOR_WHITE);
                 MyList<User> allUsers = service.getAllUsers();
                 printUsers(allUsers);
                 waitRead();
                 break;
             default:
-                System.out.println("\nIncorrect input, please enter a number");
+                System.out.println("\nIncorrect input, please enter a number!");
         }
     }
 
     private void printUsers(MyList<User> users) {
         for (User user : users){
             System.out.println("Id: " + user.getId() + "; " + user.getEmail() + "; "
-                    + "Role: " + user.getRole() + "; " + "Hold books:  " + user.getUserBooks());
+                    + "Role: " + user.getRole());
         }
     }
 }

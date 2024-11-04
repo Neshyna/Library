@@ -80,11 +80,6 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public User getUserById(int userId) {
-        return null;
-    }
-
-    @Override
     public MyList<Book> getUserBooksByUserId(int userId) {
         for (User user : users) {
             if (user.getId() == userId) {

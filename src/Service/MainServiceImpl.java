@@ -23,7 +23,7 @@ public class MainServiceImpl implements MainService {
     @Override
     public void addBook(String name, String author, int year, int bookId) {
         if (activUser == null || activUser.getRole() != Role.ADMIN) {
-            System.out.println("Adding a new book is only available to administrators");
+            System.out.println("Only admin can add a book.");
             return;
         }
         bookRepo.addNewBook(new Book(author, name, year, bookId));
@@ -45,10 +45,10 @@ public class MainServiceImpl implements MainService {
     public MyList<Book> getBookByName(String name) {
         MyList<Book> books = bookRepo.getBookByName(name);
         if (books == null || books.isEmpty()) {
-            System.out.println("No books found with the name: " + name);
+            System.out.println("No books with the title " + name + " found.");
             return new MyArrayList<>(); // Возвращаем пустой список
         } else {
-            System.out.println("Books found successfully with the name: " + name);
+            System.out.println("Books with the title " + name + " found.");
             return books;
         }
     }
@@ -57,10 +57,10 @@ public class MainServiceImpl implements MainService {
     public MyList<Book> getByAuthor(String author) {
         MyList<Book> books = bookRepo.getByAuthor(author);
         if (books == null || books.isEmpty()) {
-            System.out.println("No books found by author: " + author);
+            System.out.println("No books by author " + author + " are found.");
             return new MyArrayList<>(); // Возвращаем пустой список
         } else {
-            System.out.println("Books retrieved successfully by author: " + author);
+            System.out.println("Books by author " + author);
             return books;
         }
     }
@@ -71,7 +71,7 @@ public class MainServiceImpl implements MainService {
         MyList<Book> result = new MyArrayList<>();
         for (Book book : busyBooks) {
             if (busyBooks.isEmpty()) {
-                System.out.println("No available books found.");
+                System.out.println("No available books are found.");
             }
             if (book.isBusy()) {
                 result.add(book);
@@ -114,12 +114,12 @@ public class MainServiceImpl implements MainService {
         }
         activUser.getUserBooks().add(book);
         book.setBusy(true);
-        System.out.println("Book with ID " + bookId + " successfully borrowed.");
+        System.out.println("You have successfully taken the book with id " + bookId);
         return true;
     }
 
     private User getActiveUser() {
-        return null;
+        return activUser;
     }
 
     @Override
@@ -138,7 +138,7 @@ public class MainServiceImpl implements MainService {
     public void editBook(int bookId, String newName, String newAuthor, int newYear) {
         Book book = bookRepo.getBookById(bookId);
         if (getActiveUser() == null) {
-            System.out.println("User not logged in.");
+            System.out.println("User is not logged in.");
             return;
         }
         if (activUser.getRole() != Role.ADMIN) {
@@ -146,28 +146,28 @@ public class MainServiceImpl implements MainService {
             return;
         }
         if (book == null) {
-            System.out.println("Book with ID " + bookId + " not found.");
+            System.out.println("Book with ID " + bookId + " is not found.");
             return;
         }
         book.setName(newName);
         book.setAuthor(newAuthor);
         book.setYear(newYear);
         bookRepo.updateBook(book);
-        System.out.println("Book with ID " + bookId + " successfully updated.");
+        System.out.println("Book with ID " + bookId + " is successfully updated.");
     }
 
     @Override
     public User registerUser(String email, String password) {
         if (!PersonValidator.isEmailValid(email)) {
-            System.out.println("Please check email");
+            System.out.println("Please check the email.");
             return null;
         }
         if (!PersonValidator.isPasswordValid(password)) {
-            System.out.println("Please check password");
+            System.out.println("Please check the password.");
             return null;
         }
         if (userRepo.isMailExist(email)) {
-            System.out.println("Email already exists");
+            System.out.println("Email is already exist.");
             return null;
         }
         return userRepo.addUser(email, password);
@@ -177,25 +177,25 @@ public class MainServiceImpl implements MainService {
     public boolean loginUser(String email, String password) {
         User user = userRepo.getUserEmail(email);
         if (user == null || !user.getPassword().equals(password)) {
-            System.out.println("Invalid email or password");
+            System.out.println("Invalid email or password.");
             return false;
         }
         activUser = user; // Исправлено
-        System.out.println("User is successfully logged in");
+        System.out.println("User is successfully logged in.");
         return true;
     }
 
     @Override
     public void logout() {
         activUser = null;
-        System.out.println("User logged out successfully");
+        System.out.println("User is logged out.");
     }
 
     @Override
     public Book getBookById(int bookId) {
         Book bookById = bookRepo.getBookById(bookId);
         if (bookById == null) {
-            System.out.println("Book with ID " + bookId + " not found.");
+            System.out.println("Book with ID " + bookId + " is not found.");
         }
         return bookById;
     }
@@ -216,7 +216,7 @@ public class MainServiceImpl implements MainService {
     public User findUserById(int userId) {
         User userById = userRepo.findUserById(userId);
         if (userById == null) {
-            System.out.println("Book with ID " + userById + " not found.");
+            System.out.println("Book with ID " + userById + " is not found.");
         }
         return userById;
     }
@@ -228,7 +228,7 @@ public class MainServiceImpl implements MainService {
             System.out.println("No users found.");
             return new MyArrayList<>(); // Возвращаем пустой список
         } else {
-            System.out.println("Show all users: ");
+            System.out.println("Show all users ");
             return allUsers;
         }
     }
@@ -243,9 +243,9 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public MyList<Book> getUserBooksByUserId(int userId) {
-        User user = userRepo.getUserById(userId);
+        User user = userRepo.findUserById(userId);
         if (user == null) {
-            System.out.println("User not found.");
+            System.out.println("User is not found.");
             return null;
         }
 
@@ -253,12 +253,8 @@ public class MainServiceImpl implements MainService {
         userBooks = userRepo.getUserBooksByUserId(userId);
         if (userBooks.isEmpty()) {
             System.out.println("No books found for this user.");
-        } else {
-            System.out.println("Books owned by user " + user.getId() + ":");
-            for (Book book : userBooks) {
-                System.out.println(book);
-            }
         }
+        System.out.println("List of books owned by user with id " + userId);
         return userBooks;
     }
 }
