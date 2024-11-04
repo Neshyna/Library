@@ -249,7 +249,8 @@ public class MainServiceImpl implements MainService {
             return null;
         }
 
-        MyList<Book> userBooks = userRepo.getUserBooksByUserId(userId);
+        MyList<Book> userBooks;
+        userBooks = userRepo.getUserBooksByUserId(userId);
         if (userBooks.isEmpty()) {
             System.out.println("No books found for this user.");
         } else {
