@@ -233,17 +233,13 @@ public class MainServiceImpl implements MainService {
         }
     }
 
-
     @Override
-    public MyList<Book> findBooksByNamePart(String namePart) {
-        return bookRepo.getBookByName(namePart);
+    public boolean isUserAdmin() {
+        if (activUser.getRole() != Role.ADMIN) {
+            return false;
+        }
+        return true;
     }
-
-    @Override
-    public MyList<Book> findBooksByAuthor(String authorPart) {
-        return bookRepo.getByAuthor(authorPart);
-    }
-
 
     @Override
     public void getUserBooksByUserId(int userId) {
@@ -262,7 +258,5 @@ public class MainServiceImpl implements MainService {
                 System.out.println(book);
             }
         }
-
-
     }
 }

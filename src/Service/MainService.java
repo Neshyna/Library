@@ -40,11 +40,8 @@ public interface MainService {
 
     MyList<User> getAllUsers();
 
-    MyList<Book> findBooksByNamePart(String namePart);
-
-    MyList<Book> findBooksByAuthor(String authorPart);
-
     void getUserBooksByUserId(int userId);
 
+    boolean isUserAdmin();
 
 }

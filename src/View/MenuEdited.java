@@ -97,8 +97,8 @@ public class MenuEdited {
                 User user = service.registerUser(email, password);
 
                 if (user != null) {
-                    System.out.println("Registered successfully");
-                    showHomePage();
+                    System.out.println("Registered successfully! Please Login!");
+                    showLoginPage();
                 } else {
                     System.out.println(COLOR_RED);
                     System.out.println("Registration failed");
@@ -139,7 +139,11 @@ public class MenuEdited {
                 showBookMenu();
                 break;
             case 2:
+                if (service.isUserAdmin()){
                 showAdminMenu();
+                }else{
+                    System.out.println("Admin menu is available only for admin");
+                }
                 break;
             default:
                 System.out.println("Select an option");
@@ -273,6 +277,7 @@ public class MenuEdited {
                 System.out.println(COLOR_BLUE);
                 System.out.println("Add a book");
                 System.out.println(COLOR_WHITE);
+
                 System.out.println("Insert book's title");
                 String name = scanner.nextLine();
                 System.out.println("Insert book's author");
@@ -302,11 +307,12 @@ public class MenuEdited {
                 System.out.println(COLOR_WHITE);
                 System.out.println("Insert book id");
                 bookId = scanner.nextInt();
+                scanner.nextLine();
+
                 service.getBookById(bookId);
 
                 System.out.println("Insert new title");
                 String newName = scanner.nextLine();
-                scanner.nextLine();
 
                 System.out.println("Insert new author");
                 String newAuthor = scanner.nextLine();
@@ -334,9 +340,10 @@ public class MenuEdited {
                 System.out.println("Insert user id");
                 userId = scanner.nextInt();
                 scanner.nextLine();
-                service.getUserBooksByUserId(Integer.valueOf(userId));
+                MyList<Book> userBooksByUserId = service.getUserBooksByUserId(userId);
+                printBooks(userBooksByUserId);
+                service.getUserBooksByUserId(userId);
                 break;
-
             case 6:
                 System.out.println(COLOR_BLUE);
                 System.out.println("Show all users: ");
@@ -347,13 +354,8 @@ public class MenuEdited {
                 break;
             default:
                 System.out.println("\nIncorrect input, please enter a number");
-
         }
     }
-
-
-
-
 
     private void printUsers(MyList<User> users) {
         for (User user : users){
