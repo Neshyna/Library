@@ -61,7 +61,7 @@ public class BookRepoImpl implements BookRepo {
 
     @Override
     // Поиск книги по полному или частичному названию
-    public MyList<Book> getByNamePart(String namePart) {
+    public MyList<Book> getBookByName(String namePart) {
         MyList<Book> foundBooks = new MyArrayList<>();
         for (Book book : books) {
             if (book.getName().contains(namePart)) {

@@ -43,7 +43,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public MyList<Book> getBookByName(String name) {
-        MyList<Book> books = bookRepo.getByNamePart(name);
+        MyList<Book> books = bookRepo.getBookByName(name);
         if (books == null || books.isEmpty()) {
             System.out.println("No books found with the name: " + name);
             return new MyArrayList<>(); // Возвращаем пустой список
@@ -236,7 +236,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public MyList<Book> findBooksByNamePart(String namePart) {
-        return bookRepo.getByNamePart(namePart);
+        return bookRepo.getBookByName(namePart);
     }
 
     @Override

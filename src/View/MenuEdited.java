@@ -334,7 +334,7 @@ public class MenuEdited {
                 System.out.println("Insert user id");
                 userId = scanner.nextInt();
                 scanner.nextLine();
-                showBooksByUserId(String.valueOf(userId));
+                service.getUserBooksByUserId(Integer.valueOf(userId));
                 break;
 
             case 6:
@@ -351,8 +351,9 @@ public class MenuEdited {
         }
     }
 
-    private void showBooksByUserId(String userId) {
-    }
+
+
+
 
     private void printUsers(MyList<User> users) {
         for (User user : users){
