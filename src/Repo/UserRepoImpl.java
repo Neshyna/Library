@@ -1,5 +1,6 @@
 package Repo;
 
+import Model.Book;
 import Model.Role;
 import Model.User;
 import Utils.MyArrayList;
@@ -63,7 +64,6 @@ public class UserRepoImpl implements UserRepo {
         return null; // Если пользователь не найден, возвращаем null
     }
 
-
     @Override
     public User findUserById(int userId) {
         for (User user : users) {
@@ -83,16 +83,14 @@ public class UserRepoImpl implements UserRepo {
     public User getUserById(int userId) {
         return null;
     }
-    /*
+
     @Override
-    public MyList<Book> getUserBooksByUserId(User user) {
-        MyList<Book> userBooks = new MyArrayList<>();
-        for (Book book : books) {
-            if (user.getUserById().equals(user.getId())) { // Предполагая, что у книги есть поле ownerId
-                userBooks.add(book);
+    public MyList<Book> getUserBooksByUserId(int userId) {
+        for (User user : users) {
+            if (user.getId() == userId) {
+                return user.getUserBooks();
             }
         }
-        return userBooks;
-
-     */
+        return null;
+    }
 }

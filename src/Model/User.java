@@ -15,7 +15,7 @@ public class User {
 
     private final MyList<Book> userBooks;
 
-    public User( String email, String password) {
+    public User(String email, String password) {
 
         this.userBooks = new MyArrayList<>();
         this.role = Role.USER;
@@ -65,11 +65,35 @@ public class User {
         this.role = role;
     }
 
-    public MyList<Book> getUserBooks() {return userBooks;}
+    public MyList<Book> getUserBooks() {
+        return userBooks;
+    }
 
-    public String toString() {return null;}
+    public static int getUserIdCounter() {
+        return userIdCounter;
+    }
 
-    private User getActiveUser() {return null;}
+    public static void setUserIdCounter(int userIdCounter) {
+        User.userIdCounter = userIdCounter;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", isBlocked=" + isBlocked +
+                ", isAdmin=" + isAdmin +
+                ", userBooks=" + userBooks +
+                '}';
+    }
+
 }
 
 

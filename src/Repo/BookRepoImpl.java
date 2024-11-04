@@ -157,16 +157,6 @@ public class BookRepoImpl implements BookRepo {
         }
         return null;
     }
-/*
-    @Override
-    public MyList<Book> getUserBooksByUserId(User user) {
-        MyList<Book> userBooks = new MyArrayList<>();
-        for (Book book : books) {
-            if (book.getOwnerId().equals(user.getId())) { // Предполагая, что у книги есть поле ownerId
-                userBooks.add(book);
-            }
-        }
-        return userBooks;
-    }*/
+
 }
 

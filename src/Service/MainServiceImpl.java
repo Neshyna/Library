@@ -181,7 +181,7 @@ public class MainServiceImpl implements MainService {
             return false;
         }
         activUser = user; // Исправлено
-        System.out.println("User successfully logged in ");
+        System.out.println("User is successfully logged in");
         return true;
     }
 
@@ -242,14 +242,14 @@ public class MainServiceImpl implements MainService {
     }
 
     @Override
-    public void getUserBooksByUserId(int userId) {
+    public MyList<Book> getUserBooksByUserId(int userId) {
         User user = userRepo.getUserById(userId);
         if (user == null) {
             System.out.println("User not found.");
-            return;
+            return null;
         }
 
-        MyList<Book> userBooks = bookRepo.getUserBooksByUserId(userId);
+        MyList<Book> userBooks = userRepo.getUserBooksByUserId(userId);
         if (userBooks.isEmpty()) {
             System.out.println("No books found for this user.");
         } else {
@@ -258,5 +258,6 @@ public class MainServiceImpl implements MainService {
                 System.out.println(book);
             }
         }
+        return userBooks;
     }
 }

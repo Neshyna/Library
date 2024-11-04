@@ -1,5 +1,6 @@
 package Repo;
 
+import Model.Book;
 import Model.User;
 import Utils.MyList;
 
@@ -16,4 +17,6 @@ public interface UserRepo {
     MyList<User> getAllUsers();
 
     User getUserById(int userId);
+
+    MyList<Book> getUserBooksByUserId(int userId);
 }

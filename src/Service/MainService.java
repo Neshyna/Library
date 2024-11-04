@@ -40,7 +40,7 @@ public interface MainService {
 
     MyList<User> getAllUsers();
 
-    void getUserBooksByUserId(int userId);
+    MyList<Book> getUserBooksByUserId(int userId);
 
     boolean isUserAdmin();
 
