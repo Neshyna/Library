@@ -2,6 +2,33 @@ package Utils;
 
 public class PersonValidator {
 
+    private String email;
+    private String password;
+
+    public PersonValidator(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setEmail(String email) {
+        if (isEmailValid(email)){
+            this.email = email;
+        }
+    }
+
+    public void setPassword(String password) {
+        if (isPasswordValid(password)) {
+            this.password = password;
+        }
+    }
+
     public static boolean isEmailValid(String email) {
     /*
     Task 1

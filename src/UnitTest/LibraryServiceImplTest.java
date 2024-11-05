@@ -1,10 +1,11 @@
-package Service;
+package UnitTest;
 
 import Model.Book;
 import Model.Role;
 import Model.User;
 import Repo.BookRepoImpl;
 import Repo.UserRepoImpl;
+import Service.MainServiceImpl;
 import Utils.MyList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -224,56 +225,4 @@ class LibraryServiceImplTest {
         assertNotEquals("New Title", book.getName());
     }
 
-    @Test
-    void testValidEmailSet() {
-        String validEmail = "Valid123@test.com";
-        regularUser.setEmail(validEmail);
-        assertEquals(validEmail, regularUser.getEmail());
-    }
-
-    @ParameterizedTest
-    @MethodSource("invalidEmailData")
-    void testInvalidEmailSet(String invalidEmail) {
-        regularUser.setEmail(invalidEmail);
-        assertNotEquals(invalidEmail, regularUser.getEmail());
-        assertEquals(startEmail, regularUser.getEmail());
-    }
-
-    static Stream<String> invalidEmailData() {
-        return Stream.of(
-                "testmail.net",
-                "test@@mail.net",
-                "test@mai@l.net",
-                "test@mailnet",
-                "test@mail.ne.t",
-                "test@mail.net.",
-                "test@ mail.net",
-                "test@ma!il.net"
-        );
-    }
-
-    @Test
-    void testValidPasswordSet() {
-        String validPassword = "Test_123";
-        regularUser.setPassword(validPassword);
-        assertEquals(validPassword, regularUser.getPassword());
-    }
-
-    @ParameterizedTest
-    @MethodSource("invalidPassword")
-    void testInvalidPassword(String invalidPassword) {
-        regularUser.setPassword(invalidPassword);
-        assertEquals(startPassword, regularUser.getPassword());
-        assertNotEquals(invalidPassword, regularUser.getPassword());
-    }
-
-    static Stream<String> invalidPassword() {
-        return Stream.of(
-                "Test_1",
-                "Test_test",
-                "TEST_123",
-                "test_123",
-                "Test123456"
-        );
-    }
 }
